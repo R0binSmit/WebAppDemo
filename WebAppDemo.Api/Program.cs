@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebAppDemo.BusinessLogic.Helper;
 using WebAppDemo.BusinessLogic.Interfaces.Repositories;
 using WebAppDemo.BusinessLogic.Repositories;
 using WebAppDemo.DataAccess;
@@ -15,15 +16,15 @@ builder.Services.AddSwaggerGen();
 // Add Database Context
 builder.Services.AddDbContextFactory<DatabaseContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("WebAppDemo"),
-        new MySqlServerVersion("8.0.33")
+        builder.Configuration.GetConnectionString(ConfigurationHelper.WebAppDemo),
+        new MySqlServerVersion(builder.Configuration.GetValue<string>(ConfigurationHelper.MySqlServerVersion))
     )
-);
+); ;
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("WebAppDemo"),
-        new MySqlServerVersion("8.0.33")
+        builder.Configuration.GetConnectionString(ConfigurationHelper.WebAppDemo),
+        new MySqlServerVersion(builder.Configuration.GetValue<string>(ConfigurationHelper.MySqlServerVersion))
     )
 );
 
