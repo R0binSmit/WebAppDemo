@@ -1,6 +1,6 @@
-﻿namespace WebAppDemo.BusinessLogic.Interfaces.Repositories;
+﻿namespace WebAppDemo.IBusinessLogic.Interfaces.Repositories;
 
-public interface IGenericRepository<T> where T : class
+public interface IGenericRepository<T>
 {
     Task<T?> GetAsync(int id);
     Task<List<T>> GetAllAsync();

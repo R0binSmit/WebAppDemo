@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using WebAppDemo.BusinessLogic.Helper;
-using WebAppDemo.BusinessLogic.Interfaces.Repositories;
 using WebAppDemo.BusinessLogic.Repositories;
 using WebAppDemo.DataAccess;
+using WebAppDemo.DataAccess.Entities;
+using WebAppDemo.IBusinessLogic.Interfaces.Repositories;
+using WebAppDemo.IMappers;
+using WebAppDemo.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +33,10 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 // Add Repository scopes for accessing Data.
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IVacationTypeRepository, VacationTypeRepository>();
+builder.Services.AddScoped<IVacationTypeRepository<VacationType>, VacationTypeRepository>();
+
+// Add Mappers.
+builder.Services.AddSingleton<IVacationTypeMapper, VacationTypeMapper>();
 
 var app = builder.Build();
 

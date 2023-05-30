@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -21,7 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebAppDemo.Core\WebAppDemo.Core.csproj" />
+    <ProjectReference Include="..\WebAppDemo.BusinessLogic\WebAppDemo.BusinessLogic.csproj" />
+    <ProjectReference Include="..\WebAppDemo.DataAccess\WebAppDemo.DataAccess.csproj" />
+    <ProjectReference Include="..\WebAppDemo.DataTransferObjects\WebAppDemo.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\WebAppDemo.IDataAccess\WebAppDemo.IDataAccess.csproj" />
+    <ProjectReference Include="..\WebAppDemo.IMappers\WebAppDemo.IMappers.csproj" />
+    <ProjectReference Include="..\WebAppDemo.Mappers\WebAppDemo.Mappers.csproj" />
   </ItemGroup>
 
 </Project>

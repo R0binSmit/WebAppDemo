@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebAppDemo.BusinessLogic.Interfaces.Repositories;
 using WebAppDemo.DataAccess;
+using WebAppDemo.IBusinessLogic.Interfaces.Repositories;
 
 namespace WebAppDemo.BusinessLogic.Repositories;
 
@@ -39,7 +39,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     public async Task<List<T>> GetAllAsync()
     {
         return await _context.Set<T>().ToListAsync();
-
     }
 
     public async Task<T?> GetAsync(int id)

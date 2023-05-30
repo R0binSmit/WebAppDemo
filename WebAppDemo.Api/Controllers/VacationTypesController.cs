@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAppDemo.BusinessLogic.Helper;
-using WebAppDemo.BusinessLogic.Interfaces.Repositories;
+using WebAppDemo.DataAccess.Entities;
 using WebAppDemo.DataTransferObjects.VacationType;
+using WebAppDemo.IBusinessLogic.Interfaces.Repositories;
+using WebAppDemo.IMappers;
 
 namespace WebAppDemo.Api.Controllers;
 
@@ -9,13 +10,13 @@ namespace WebAppDemo.Api.Controllers;
 [ApiController]
 public class VacationTypesController : ControllerBase
 {
-    private readonly IVacationTypeRepository _vacationTypeRepository;
-    private readonly Mapper _mapper;
+    private readonly IVacationTypeRepository<VacationType> _vacationTypeRepository;
+    private readonly IVacationTypeMapper _mapper;
 
-    public VacationTypesController(IVacationTypeRepository vacationTypeRepository) 
+    public VacationTypesController(IVacationTypeRepository<VacationType> vacationTypeRepository, IVacationTypeMapper vacationTypeMapper) 
     {
         _vacationTypeRepository = vacationTypeRepository;
-        _mapper = Mapper.GetMapper();
+        _mapper = vacationTypeMapper;
     }
 
     [HttpGet]

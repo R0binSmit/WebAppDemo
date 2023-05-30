@@ -3,20 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppDemo.Api", "WebAppDemo.Api\WebAppDemo.Api.csproj", "{784B59D2-663F-4567-BC7A-0A765732A779}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.Api", "WebAppDemo.Api\WebAppDemo.Api.csproj", "{784B59D2-663F-4567-BC7A-0A765732A779}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4B0B24E9-BA45-4729-822E-769ABCC03A82}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppDemo.DataAccess", "WebAppDemo.DataAccess\WebAppDemo.DataAccess.csproj", "{3EC602DB-C82B-44AA-9436-5FFB44E709B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.DataAccess", "WebAppDemo.DataAccess\WebAppDemo.DataAccess.csproj", "{3EC602DB-C82B-44AA-9436-5FFB44E709B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppDemo.DataTransferObjects", "WebAppDemo.DataTransferObjects\WebAppDemo.DataTransferObjects.csproj", "{95611ACB-D382-4EC6-996E-55A9CA8F7D75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.DataTransferObjects", "WebAppDemo.DataTransferObjects\WebAppDemo.DataTransferObjects.csproj", "{95611ACB-D382-4EC6-996E-55A9CA8F7D75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppDemo.Core", "WebAppDemo.Core\WebAppDemo.Core.csproj", "{D634306F-5C82-4BC2-BE6E-8D29A1D0C869}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.BusinessLogic", "WebAppDemo.BusinessLogic\WebAppDemo.BusinessLogic.csproj", "{72C6A7A8-8420-46FD-920B-297BA93DD6DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppDemo.BusinessLogic", "WebAppDemo.BusinessLogic\WebAppDemo.BusinessLogic.csproj", "{72C6A7A8-8420-46FD-920B-297BA93DD6DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.BusinessLogic.UnitTests", "WebAppDemo.BusinessLogic.UnitTests\WebAppDemo.BusinessLogic.UnitTests.csproj", "{FED24A28-016A-4BD9-8507-CA3832961E44}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.IDataAccess", "WebAppDemo.IDataAccess\WebAppDemo.IDataAccess.csproj", "{F038A4B6-08DF-4355-A603-05333E85FE56}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.IMappers", "WebAppDemo.IMappers\WebAppDemo.IMappers.csproj", "{91DA70DF-F4FD-4780-B0F6-88BA1797C008}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppDemo.Mappers", "WebAppDemo.Mappers\WebAppDemo.Mappers.csproj", "{1110D482-FD87-4A28-BB6E-584E55ECC1E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,14 +42,26 @@ Global
 		{95611ACB-D382-4EC6-996E-55A9CA8F7D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95611ACB-D382-4EC6-996E-55A9CA8F7D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95611ACB-D382-4EC6-996E-55A9CA8F7D75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D634306F-5C82-4BC2-BE6E-8D29A1D0C869}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D634306F-5C82-4BC2-BE6E-8D29A1D0C869}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D634306F-5C82-4BC2-BE6E-8D29A1D0C869}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D634306F-5C82-4BC2-BE6E-8D29A1D0C869}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72C6A7A8-8420-46FD-920B-297BA93DD6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72C6A7A8-8420-46FD-920B-297BA93DD6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72C6A7A8-8420-46FD-920B-297BA93DD6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72C6A7A8-8420-46FD-920B-297BA93DD6DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FED24A28-016A-4BD9-8507-CA3832961E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FED24A28-016A-4BD9-8507-CA3832961E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FED24A28-016A-4BD9-8507-CA3832961E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FED24A28-016A-4BD9-8507-CA3832961E44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F038A4B6-08DF-4355-A603-05333E85FE56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F038A4B6-08DF-4355-A603-05333E85FE56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F038A4B6-08DF-4355-A603-05333E85FE56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F038A4B6-08DF-4355-A603-05333E85FE56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91DA70DF-F4FD-4780-B0F6-88BA1797C008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91DA70DF-F4FD-4780-B0F6-88BA1797C008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91DA70DF-F4FD-4780-B0F6-88BA1797C008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91DA70DF-F4FD-4780-B0F6-88BA1797C008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1110D482-FD87-4A28-BB6E-584E55ECC1E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1110D482-FD87-4A28-BB6E-584E55ECC1E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1110D482-FD87-4A28-BB6E-584E55ECC1E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1110D482-FD87-4A28-BB6E-584E55ECC1E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

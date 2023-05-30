@@ -1,31 +1,18 @@
 ﻿using Riok.Mapperly.Abstractions;
 using WebAppDemo.DataAccess.Entities;
 using WebAppDemo.DataTransferObjects.VacationType;
+using WebAppDemo.IMappers;
 
-namespace WebAppDemo.BusinessLogic.Helper;
+namespace WebAppDemo.Mappers;
 
 [Mapper]
-public partial class Mapper
+public partial class VacationTypeMapper : IVacationTypeMapper
 {
-    private static Mapper? _mapper;
-
-    private Mapper()
-    {
-
-    }
-
-    public static Mapper GetMapper()
-    {
-        if (_mapper == null)
-        {
-            _mapper = new Mapper();
-        }
-
-        return _mapper;
-    }
-
     public partial VacationType Map(CreateVacationTypeDto createVacationTypeDto);
+
     public partial VacationType Map(UpdateVacationTypeDto updateVacationTypeDto);
+
     public partial GetVacationTypeDto Map(VacationType vacationType);
+
     public partial List<GetVacationTypeDto> Map(List<VacationType> vacationTypes);
 }
