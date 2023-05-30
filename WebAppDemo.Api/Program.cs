@@ -4,7 +4,9 @@ using WebAppDemo.BusinessLogic.Helper;
 using WebAppDemo.BusinessLogic.Repositories;
 using WebAppDemo.DataAccess;
 using WebAppDemo.DataAccess.Entities;
+using WebAppDemo.DataAccess.Repositories;
 using WebAppDemo.IBusinessLogic.Interfaces.Repositories;
+using WebAppDemo.IDataAccess.Repositories;
 using WebAppDemo.IMappers;
 using WebAppDemo.Mappers;
 
@@ -35,9 +37,11 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 // Add Repository scopes for accessing Data.
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IVacationTypeRepository<VacationType>, VacationTypeRepository>();
+builder.Services.AddScoped<IStateRepository<State>, StateRepository>();
 
 // Add Mappers.
 builder.Services.AddSingleton<IVacationTypeMapper, VacationTypeMapper>();
+builder.Services.AddSingleton<IStateMapper, StateMapper>();
 
 // Add Logging
 builder.Host.UseSerilog((context, configuration) => 

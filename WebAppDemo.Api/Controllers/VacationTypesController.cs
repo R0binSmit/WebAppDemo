@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAppDemo.DataAccess.Entities;
-using WebAppDemo.DataAccess.EntityConfigurations;
 using WebAppDemo.DataTransferObjects.VacationType;
 using WebAppDemo.IBusinessLogic.Interfaces.Repositories;
 using WebAppDemo.IMappers;
@@ -49,7 +48,22 @@ public class VacationTypesController : ControllerBase
     {
         var vacationType = _mapper.Map(createVacationTypeDto);
         await _vacationTypeRepository.AddAsync(vacationType);
-        return CreatedAtAction("GetVacationType", new { id =  vacationType.Id }, _mapper.Map(vacationType));
+        return CreatedAtAction("GetVacationType", new { id = vacationType.Id }, _mapper.Map(vacationType));
+    }
+
+    [HttpPut]
+    public async Task<ActionResult> UpdateVacationType(UpdateVacationTypeDto updateVacationTypeDto)
+    {
+        var vacationType = _mapper.Map(updateVacationTypeDto);
+        var vacationTypeExists = await _vacationTypeRepository.ExistsAsync(vacationType.Id);
+
+        if (updateVacationTypeDto.Id != vacationType.Id || vacationTypeExists == false)
+        {
+            return BadRequest();
+        }
+
+        await _vacationTypeRepository.UpdateAsync(vacationType);
+        return Ok();
     }
 
     [HttpDelete("{id}")]

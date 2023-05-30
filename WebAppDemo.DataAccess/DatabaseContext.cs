@@ -12,6 +12,7 @@ public class DatabaseContext : DbContext
     }
 
     public DbSet<VacationType> VacationTypes => Set<VacationType>();
+    public DbSet<State> Statements => Set<State>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,5 +20,6 @@ public class DatabaseContext : DbContext
 
         // Configure Entities.
         new VacationTypeConfiguration().Configure(modelBuilder.Entity<VacationType>());
+        new StateConfiguration().Configure(modelBuilder.Entity<State>());
     }
 }
