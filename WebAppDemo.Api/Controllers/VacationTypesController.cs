@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAppDemo.DataAccess.Entities;
+using WebAppDemo.DataAccess.EntityConfigurations;
 using WebAppDemo.DataTransferObjects.VacationType;
 using WebAppDemo.IBusinessLogic.Interfaces.Repositories;
 using WebAppDemo.IMappers;
@@ -12,11 +13,15 @@ public class VacationTypesController : ControllerBase
 {
     private readonly IVacationTypeRepository<VacationType> _vacationTypeRepository;
     private readonly IVacationTypeMapper _mapper;
+    private readonly ILogger<VacationTypesController> _logger;
 
-    public VacationTypesController(IVacationTypeRepository<VacationType> vacationTypeRepository, IVacationTypeMapper vacationTypeMapper) 
+    public VacationTypesController(IVacationTypeRepository<VacationType> vacationTypeRepository, 
+        IVacationTypeMapper vacationTypeMapper,
+        ILogger<VacationTypesController> logger)
     {
         _vacationTypeRepository = vacationTypeRepository;
         _mapper = vacationTypeMapper;
+        _logger = logger;
     }
 
     [HttpGet]

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using WebAppDemo.BusinessLogic.Helper;
 using WebAppDemo.BusinessLogic.Repositories;
 using WebAppDemo.DataAccess;
@@ -38,6 +39,10 @@ builder.Services.AddScoped<IVacationTypeRepository<VacationType>, VacationTypeRe
 // Add Mappers.
 builder.Services.AddSingleton<IVacationTypeMapper, VacationTypeMapper>();
 
+// Add Logging
+builder.Host.UseSerilog((context, configuration) => 
+    configuration.ReadFrom.Configuration(context.Configuration));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,10 +52,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
