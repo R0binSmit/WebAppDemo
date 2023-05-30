@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.IDataAccess", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.IMappers", "WebAppDemo.IMappers\WebAppDemo.IMappers.csproj", "{91DA70DF-F4FD-4780-B0F6-88BA1797C008}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppDemo.Mappers", "WebAppDemo.Mappers\WebAppDemo.Mappers.csproj", "{1110D482-FD87-4A28-BB6E-584E55ECC1E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.Mappers", "WebAppDemo.Mappers\WebAppDemo.Mappers.csproj", "{1110D482-FD87-4A28-BB6E-584E55ECC1E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

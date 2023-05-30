@@ -44,8 +44,16 @@ builder.Services.AddSingleton<IVacationTypeMapper, VacationTypeMapper>();
 builder.Services.AddSingleton<IStateMapper, StateMapper>();
 
 // Add Logging
-builder.Host.UseSerilog((context, configuration) => 
+builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
+
+// Add Corse Service
+builder.Services.AddCors(options => options.AddPolicy(name: "WebAppDemo",
+    policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    }
+));
 
 var app = builder.Build();
 
@@ -56,6 +64,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("WebAppDemo");
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.UseAuthorization();
