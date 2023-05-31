@@ -9,15 +9,15 @@ public class VacationTypeConfiguration : IEntityTypeConfiguration<VacationType>
     public void Configure(EntityTypeBuilder<VacationType> builder)
     {
         builder
-            .HasKey(e => e.Id);
+            .HasKey(vacationType => vacationType.Id);
 
         builder
-            .Property(e => e.Name)
+            .Property(vacationType => vacationType.Name)
             .IsRequired()
             .HasMaxLength(50);
 
         builder
-            .HasIndex(e => e.Name)
+            .HasIndex(vacationType => vacationType.Name)
             .IsUnique();
     }
 }

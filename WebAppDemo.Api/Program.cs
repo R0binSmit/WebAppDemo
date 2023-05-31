@@ -38,10 +38,14 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IVacationTypeRepository<VacationType>, VacationTypeRepository>();
 builder.Services.AddScoped<IStateRepository<State>, StateRepository>();
+builder.Services.AddScoped<IAddressRepository<Address>, AddressRepository>();
+builder.Services.AddScoped<ICountryRepoitory<Country>, CountryRepository>();
 
 // Add Mappers.
 builder.Services.AddSingleton<IVacationTypeMapper, VacationTypeMapper>();
 builder.Services.AddSingleton<IStateMapper, StateMapper>();
+builder.Services.AddSingleton<IAddressMapper, AddressMapper>();
+builder.Services.AddSingleton<ICountryMapper, CountryMapper>();
 
 // Add Logging
 builder.Host.UseSerilog((context, configuration) =>

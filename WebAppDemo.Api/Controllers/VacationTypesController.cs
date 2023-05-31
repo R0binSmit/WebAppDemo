@@ -11,23 +11,21 @@ namespace WebAppDemo.Api.Controllers;
 public class VacationTypesController : ControllerBase
 {
     private readonly IVacationTypeRepository<VacationType> _vacationTypeRepository;
-    private readonly IVacationTypeMapper _mapper;
-    private readonly ILogger<VacationTypesController> _logger;
+    private readonly IVacationTypeMapper _vacationTypeMapper;
 
-    public VacationTypesController(IVacationTypeRepository<VacationType> vacationTypeRepository, 
-        IVacationTypeMapper vacationTypeMapper,
-        ILogger<VacationTypesController> logger)
+    public VacationTypesController(
+        IVacationTypeRepository<VacationType> vacationTypeRepository, 
+        IVacationTypeMapper vacationTypeMapper)
     {
         _vacationTypeRepository = vacationTypeRepository;
-        _mapper = vacationTypeMapper;
-        _logger = logger;
+        _vacationTypeMapper = vacationTypeMapper;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<GetVacationTypeDto>>> GetVacationTypes()
     {
         var vacationTypes = await _vacationTypeRepository.GetAllAsync();
-        return _mapper.Map(vacationTypes);
+        return _vacationTypeMapper.Map(vacationTypes);
     }
 
     [HttpGet("{id}")]
@@ -40,21 +38,21 @@ public class VacationTypesController : ControllerBase
             return NotFound();
         }
 
-        return _mapper.Map(vacationType);
+        return _vacationTypeMapper.Map(vacationType);
     }
 
     [HttpPost]
     public async Task<ActionResult<GetVacationTypeDto>> CreateVacationType(CreateVacationTypeDto createVacationTypeDto)
     {
-        var vacationType = _mapper.Map(createVacationTypeDto);
+        var vacationType = _vacationTypeMapper.Map(createVacationTypeDto);
         await _vacationTypeRepository.AddAsync(vacationType);
-        return CreatedAtAction("GetVacationType", new { id = vacationType.Id }, _mapper.Map(vacationType));
+        return CreatedAtAction("GetVacationType", new { id = vacationType.Id }, _vacationTypeMapper.Map(vacationType));
     }
 
     [HttpPut]
     public async Task<ActionResult> UpdateVacationType(UpdateVacationTypeDto updateVacationTypeDto)
     {
-        var vacationType = _mapper.Map(updateVacationTypeDto);
+        var vacationType = _vacationTypeMapper.Map(updateVacationTypeDto);
         var vacationTypeExists = await _vacationTypeRepository.ExistsAsync(vacationType.Id);
 
         if (updateVacationTypeDto.Id != vacationType.Id || vacationTypeExists == false)

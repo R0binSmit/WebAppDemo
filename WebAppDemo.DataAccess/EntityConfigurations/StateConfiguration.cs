@@ -9,15 +9,21 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
     public void Configure(EntityTypeBuilder<State> builder)
     {
         builder
-            .HasKey(e => e.Id);
+            .HasKey(state => state.Id);
 
         builder
-            .Property(e => e.Name)
+            .Property(state => state.Name)
             .IsRequired()
             .HasMaxLength(50);
 
         builder
-            .HasIndex(e => e.Name)
+            .HasIndex(state => state.Name)
             .IsUnique();
+
+        builder
+            .HasOne(state => state.Country)
+            .WithMany(country => country.States)
+            .HasForeignKey(state => state.CountryId)
+            .IsRequired();
     }
 }

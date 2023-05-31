@@ -6,20 +6,20 @@ namespace WebAppDemo.BusinessLogic.Repositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    private readonly DatabaseContext _context;
+    internal readonly DatabaseContext _context;
     public GenericRepository(DatabaseContext databaseContext)
     {
         _context = databaseContext;
     }
 
-    public async Task<T> AddAsync(T entity)
+    public virtual async Task<T> AddAsync(T entity)
     {
         await _context.AddAsync(entity);
         await _context.SaveChangesAsync();
         return entity;
     }
 
-    public async Task DeleteAsync(int id)
+    public virtual async Task DeleteAsync(int id)
     {
         var entity = await GetAsync(id);
 
@@ -30,18 +30,18 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
     }
 
-    public async Task<bool> ExistsAsync(int id)
+    public virtual async Task<bool> ExistsAsync(int id)
     {
         var entity = await GetAsync(id);
         return entity != null;
     }
 
-    public async Task<List<T>> GetAllAsync()
+    public virtual async Task<List<T>> GetAllAsync()
     {
         return await _context.Set<T>().ToListAsync();
     }
 
-    public async Task<T?> GetAsync(int id)
+    public virtual async Task<T?> GetAsync(int id)
     {
         T? entity = await _context.Set<T>().FindAsync(id);
 
@@ -53,7 +53,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return entity;
     }
 
-    public async Task UpdateAsync(T entity)
+    public virtual async Task UpdateAsync(T entity)
     {
         _context.Update(entity);
         await _context.SaveChangesAsync();
