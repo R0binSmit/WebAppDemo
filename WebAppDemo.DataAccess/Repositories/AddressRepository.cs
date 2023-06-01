@@ -17,6 +17,7 @@ public class AddressRepository : GenericRepository<Address>, IAddressRepository<
         return await _context
             .Set<Address>()
             .Include(address => address.State)
+            .Include(address => address.State.Country)
             .ToListAsync();
     }
 
@@ -25,6 +26,7 @@ public class AddressRepository : GenericRepository<Address>, IAddressRepository<
         return await _context
             .Set<Address>()
             .Include(address => address.State)
+            .Include(address => address.State.Country)
             .FirstOrDefaultAsync(address => address.Id == id);
     }
 }

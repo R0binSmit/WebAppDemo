@@ -82,7 +82,7 @@ public class CountriesController : ControllerBase
         return Ok();
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteCountry(int id)
     {
         var country = await _countryRepoitory.GetAsync(id);
