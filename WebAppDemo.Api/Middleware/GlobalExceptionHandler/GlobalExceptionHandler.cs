@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
+using WebAppDemo.Api.Exceptions;
 
 namespace WebAppDemo.Api.Middleware.GlobalExceptionHandler;
 
@@ -49,6 +50,8 @@ public class GlobalExceptionHandler
         {
             case ArgumentException argumentException:
                 return (int)HttpStatusCode.BadRequest;
+            case NotFoundException notFoundException:
+                return (int)HttpStatusCode.NotFound;
             default:
                 return (int)HttpStatusCode.InternalServerError;
 

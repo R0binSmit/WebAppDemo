@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
+using WebAppDemo.Api.Exceptions;
 using WebAppDemo.DataAccess.Entities;
 using WebAppDemo.DataTransferObjects.Country;
 using WebAppDemo.IDataAccess.Repositories;
@@ -16,12 +16,16 @@ public class CountriesController : ControllerBase
 
     public CountriesController(
         ICountryRepoitory<Country> countryRepoitory,
-        ICountryMapper countryMapper) 
+        ICountryMapper countryMapper)
     {
         _countryRepoitory = countryRepoitory;
         _countryMapper = countryMapper;
     }
 
+    /// <summary>
+    /// Gets a list of countries from the repository.
+    /// </summary>
+    /// <returns>A list of countries.</returns>
     [HttpGet]
     public async Task<ActionResult<List<GetCountryDto>>> GetCountries()
     {
@@ -29,14 +33,19 @@ public class CountriesController : ControllerBase
         return _countryMapper.Map(countries);
     }
 
+    /// <summary>
+    /// Gets a Country by its id.
+    /// </summary>
+    /// <param name="id">The id of the Country to get.</param>
+    /// <returns>The Country with the given id.</returns>
     [HttpGet("{id}")]
     public async Task<ActionResult<GetCountryDto>> GetCountry(int id)
     {
         var country = await _countryRepoitory.GetAsync(id);
 
-        if(country == null)
+        if (country == null)
         {
-            return NotFound();
+            throw new NotFoundException($"There is no Country with the given id ({id}).");
         }
 
         return _countryMapper.Map(country);
@@ -47,7 +56,15 @@ public class CountriesController : ControllerBase
     {
         var country = _countryMapper.Map(createCountryDto);
         await _countryRepoitory.AddAsync(country);
-        return CreatedAtAction("GetCountry", new { id = country.Id }, _countryMapper.Map(country));
+
+        var newCountry = await _countryRepoitory.GetAsync(country.Id);
+
+        if (newCountry == null)
+        {
+            throw new NotFoundException("Can't found the new created country.");
+        }
+
+        return _countryMapper.Map(newCountry);
     }
 
     [HttpPut]
@@ -56,9 +73,9 @@ public class CountriesController : ControllerBase
         var country = _countryMapper.Map(updateCountryDto);
         var countryExists = await _countryRepoitory.ExistsAsync(country.Id);
 
-        if(updateCountryDto.Id != country.Id || countryExists == false)
+        if (countryExists == false)
         {
-            return BadRequest();
+            throw new NotFoundException($"Can't update country because there is no country with the given id ({country.Id}).");
         }
 
         await _countryRepoitory.UpdateAsync(country);
@@ -70,9 +87,9 @@ public class CountriesController : ControllerBase
     {
         var country = await _countryRepoitory.GetAsync(id);
 
-        if(country == null)
+        if (country == null)
         {
-            return NotFound();
+            throw new NotFoundException($"Can't delete country because there is no country with the given id ({id}).");
         }
 
         await _countryRepoitory.DeleteAsync(id);

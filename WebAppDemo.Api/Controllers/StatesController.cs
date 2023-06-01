@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAppDemo.Api.Exceptions;
 using WebAppDemo.DataAccess.Entities;
 using WebAppDemo.DataTransferObjects.State;
 using WebAppDemo.IDataAccess.Repositories;
@@ -6,6 +7,10 @@ using WebAppDemo.IMappers;
 
 namespace WebAppDemo.Api.Controllers;
 
+/// <summary>
+/// Controller for managing states.
+/// </summary>
+/// <returns>Actions for getting, creating, updating and deleting states.</returns>
 [Route("api/[controller]")]
 [ApiController]
 public class StatesController : ControllerBase
@@ -24,6 +29,10 @@ public class StatesController : ControllerBase
         _stateMapper = stateMapper;
     }
 
+    /// <summary>
+    /// Gets a list of states from the repository.
+    /// </summary>
+    /// <returns>A list of GetStateDto objects.</returns>
     [HttpGet]
     public async Task<ActionResult<List<GetStateDto>>> GetStates()
     {
@@ -31,6 +40,11 @@ public class StatesController : ControllerBase
         return _stateMapper.Map(states);
     }
 
+    /// <summary>
+    /// Gets a state by its id.
+    /// </summary>
+    /// <param name="id">The id of the state.</param>
+    /// <returns>The state with the given id.</returns>
     [HttpGet("{id}")]
     public async Task<ActionResult<GetStateDto>> GetState(int id)
     {
@@ -38,14 +52,17 @@ public class StatesController : ControllerBase
 
         if (state == null)
         {
-            throw new ArgumentException(
-                $"Can't find State by given id ({id}).",
-                nameof(id));
+            throw new NotFoundException($"Can't find State by given id ({id}).");
         }
 
         return _stateMapper.Map(state);
     }
 
+    /// <summary>
+    /// Creates a new state with the given data.
+    /// </summary>
+    /// <param name="createStateDto">The data for the new state.</param>
+    /// <returns>The created state.</returns>
     [HttpPost]
     public async Task<ActionResult<GetStateDto>> CreateState(CreateStateDto createStateDto)
     {
@@ -53,7 +70,7 @@ public class StatesController : ControllerBase
         var isNameAward = await _stateRepository.IsNameAward(state.Name);
         var countryExists = await _countryRepoitory.ExistsAsync(state.CountryId);
 
-        if (isNameAward)
+        if (isNameAward == true)
         {
             throw new ArgumentException(
                 $"Can't create State because a State with the given name ({state.Name}) already exists.",
@@ -61,7 +78,7 @@ public class StatesController : ControllerBase
             );
         }
 
-        if(!countryExists)
+        if (countryExists == false)
         {
             throw new ArgumentException(
                 $"Can't create State because the given countryId ({state.CountryId}) does not exists.",
@@ -74,29 +91,32 @@ public class StatesController : ControllerBase
 
         if (newState == null)
         {
-            return NotFound();
+            throw new NotFoundException("Can't found the new created state.");
         }
 
         return _stateMapper.Map(newState);
     }
 
+
+    /// <summary>
+    /// Updates a state with the given data.
+    /// </summary>
+    /// <param name="updateStateDto">The data to update the state with.</param>
+    /// <returns>An Ok result if the update was successful.</returns>
     [HttpPut]
     public async Task<ActionResult> UpdateState(UpdateStateDto updateStateDto)
     {
         var state = _stateMapper.Map(updateStateDto);
-        var stateExist = await _stateRepository.ExistsAsync(updateStateDto.Id);
+        var stateExist = await _stateRepository.ExistsAsync(state.Id);
         var isNameAward = await _stateRepository.IsNameAward(state.Name);
         var countryExists = await _countryRepoitory.ExistsAsync(state.CountryId);
 
-        if (stateExist)
+        if (stateExist == false)
         {
-            throw new ArgumentException(
-                $"Can't update State because there is no State with the given id ({state.Id}).",
-                nameof(state.Id)
-            );
+            throw new NotFoundException($"Can't update State because there is no State with the given id ({state.Id}).");
         }
 
-        if (isNameAward) 
+        if (isNameAward == true)
         {
             throw new ArgumentException(
                 $"Can't update State because a State with the given name ({state.Name}) already exists.",
@@ -116,6 +136,11 @@ public class StatesController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Deletes a state from the database.
+    /// </summary>
+    /// <param name="id">The id of the state to delete.</param>
+    /// <returns>No content if the state was successfully deleted.</returns>
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteState(int id)
     {
@@ -123,10 +148,7 @@ public class StatesController : ControllerBase
 
         if (state == null)
         {
-            throw new ArgumentException(
-                $"Can't delete State because there is no State with the given id ({id}).",
-                nameof(id)
-            );
+            throw new NotFoundException($"Can't delete State because there is no State with the given id ({id}).");
         }
 
         await _stateRepository.DeleteAsync(state.Id);
