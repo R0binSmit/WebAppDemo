@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using WebAppDemo.Api.Middleware.GlobalExceptionHandler;
 using WebAppDemo.BusinessLogic.Helper;
 using WebAppDemo.BusinessLogic.Repositories;
 using WebAppDemo.DataAccess;
@@ -67,6 +68,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Add Middleware
+app.UseMiddleware<GlobalExceptionHandler>();
 
 app.UseCors("WebAppDemo");
 app.UseSerilogRequestLogging();

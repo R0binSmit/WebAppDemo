@@ -38,7 +38,9 @@ public class StatesController : ControllerBase
 
         if (state == null)
         {
-            return NotFound();
+            throw new ArgumentException(
+                $"Can't find State by given id ({id}).",
+                nameof(id));
         }
 
         return _stateMapper.Map(state);
@@ -51,9 +53,20 @@ public class StatesController : ControllerBase
         var isNameAward = await _stateRepository.IsNameAward(state.Name);
         var countryExists = await _countryRepoitory.ExistsAsync(state.CountryId);
 
-        if(isNameAward || !countryExists)
+        if (isNameAward)
         {
-            return BadRequest();
+            throw new ArgumentException(
+                $"Can't create State because a State with the given name ({state.Name}) already exists.",
+                nameof(createStateDto.Name)
+            );
+        }
+
+        if(!countryExists)
+        {
+            throw new ArgumentException(
+                $"Can't create State because the given countryId ({state.CountryId}) does not exists.",
+                nameof(createStateDto.CountryId)
+            );
         }
 
         await _stateRepository.AddAsync(state);
@@ -75,9 +88,28 @@ public class StatesController : ControllerBase
         var isNameAward = await _stateRepository.IsNameAward(state.Name);
         var countryExists = await _countryRepoitory.ExistsAsync(state.CountryId);
 
-        if (stateExist == false || isNameAward || !countryExists)
+        if (stateExist)
         {
-            return BadRequest();
+            throw new ArgumentException(
+                $"Can't update State because there is no State with the given id ({state.Id}).",
+                nameof(state.Id)
+            );
+        }
+
+        if (isNameAward) 
+        {
+            throw new ArgumentException(
+                $"Can't update State because a State with the given name ({state.Name}) already exists.",
+                nameof(state.Name)
+            );
+        }
+
+        if (!countryExists)
+        {
+            throw new ArgumentException(
+                $"Can't update State because the given countryId ({state.CountryId}) does not exists.",
+                nameof(state.CountryId)
+            );
         }
 
         await _stateRepository.UpdateAsync(state);
@@ -91,7 +123,10 @@ public class StatesController : ControllerBase
 
         if (state == null)
         {
-            return NotFound();
+            throw new ArgumentException(
+                $"Can't delete State because there is no State with the given id ({id}).",
+                nameof(id)
+            );
         }
 
         await _stateRepository.DeleteAsync(state.Id);
