@@ -11,13 +11,16 @@ namespace WebAppDemo.Api.Controllers;
 public class StatesController : ControllerBase
 {
     private readonly IStateRepository<State> _stateRepository;
+    private readonly ICountryRepoitory<Country> _countryRepoitory;
     private readonly IStateMapper _stateMapper;
 
     public StatesController(
         IStateRepository<State> stateRepository,
+        ICountryRepoitory<Country> countryRepoitory,
         IStateMapper stateMapper)
     {
         _stateRepository = stateRepository;
+        _countryRepoitory = countryRepoitory;
         _stateMapper = stateMapper;
     }
 
@@ -45,8 +48,23 @@ public class StatesController : ControllerBase
     public async Task<ActionResult<GetStateDto>> CreateState(CreateStateDto createStateDto)
     {
         var state = _stateMapper.Map(createStateDto);
+        var isNameAward = await _stateRepository.IsNameAward(state.Name);
+        var countryExists = await _countryRepoitory.ExistsAsync(state.CountryId);
+
+        if(isNameAward || !countryExists)
+        {
+            return BadRequest();
+        }
+
         await _stateRepository.AddAsync(state);
-        return CreatedAtAction("GetState", new { id = state.Id }, _stateMapper.Map(state));
+        var newState = await _stateRepository.GetAsync(state.Id);
+
+        if (newState == null)
+        {
+            return NotFound();
+        }
+
+        return _stateMapper.Map(newState);
     }
 
     [HttpPut]
@@ -54,8 +72,10 @@ public class StatesController : ControllerBase
     {
         var state = _stateMapper.Map(updateStateDto);
         var stateExist = await _stateRepository.ExistsAsync(updateStateDto.Id);
+        var isNameAward = await _stateRepository.IsNameAward(state.Name);
+        var countryExists = await _countryRepoitory.ExistsAsync(state.CountryId);
 
-        if(updateStateDto.Id != state.Id || stateExist == false)
+        if (stateExist == false || isNameAward || !countryExists)
         {
             return BadRequest();
         }

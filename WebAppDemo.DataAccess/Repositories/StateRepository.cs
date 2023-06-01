@@ -27,4 +27,13 @@ public class StateRepository : GenericRepository<State>, IStateRepository<State>
             .Include(state => state.Country)
             .FirstOrDefaultAsync(address => address.Id == id);
     }
+
+    public async Task<bool> IsNameAward(string name)
+    {
+        var state = await _context
+            .Set<State>()
+            .FirstOrDefaultAsync(state => state.Name == name);
+
+        return !(state == null);
+    }
 }
