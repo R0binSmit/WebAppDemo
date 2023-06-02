@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { VacationType } from './models/vacation-type';
-import { VacationTypeService } from './services/vacation-type.service';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +7,7 @@ import { VacationTypeService } from './services/vacation-type.service';
 })
 export class AppComponent {
   title = 'WebAppDemo.UI';
-  vacationTypes: VacationType[] = [];
 
-  constructor(private vacationTypeService: VacationTypeService) {
-  }
-
-  ngOnInit(): void {
-    this.vacationTypeService
-      .getAll()
-      .subscribe((result: VacationType[]) => (this.vacationTypes = result))
+  constructor() {
   }
 }

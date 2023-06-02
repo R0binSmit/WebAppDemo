@@ -1,0 +1,18 @@
+<div class="overflow-auto rounded-lg shadow">
+    <table>
+        <thead>
+            <tr>
+                <th *ngFor="let tableHeaderItem of tableHeaderItems">
+                    {{ tableHeaderItem.displayName }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dataItem of data; let i = index" [class]="getTrStyle(i)" >
+                <td *ngFor="let tableHeaderItem of tableHeaderItems">
+                    {{ getPropertieValue(dataItem, tableHeaderItem.dataPropertieName) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

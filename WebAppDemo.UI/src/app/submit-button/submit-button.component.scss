@@ -1,0 +1,13 @@
+.btn-submit {
+    @apply
+        rounded-md
+        py-2
+        px-3
+        uppercase
+        text-xs
+        font-bold
+        text-gray-200
+        cursor-pointer
+        tracking-wider
+        bg-green-600
+}

@@ -2,3 +2,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+table {
+    @apply
+        w-full
+}
+
+table thead {
+    @apply
+        bg-gray-50
+        border-b-2
+        border-gray-200
+}
+
+table thead tr th {
+    @apply
+        w-20
+        p-3
+        text-sm
+        font-semibold
+        tracking-wide
+        text-left
+        whitespace-nowrap
+}
+
+table tbody {
+    @apply
+        divide-y
+}
+
+table tbody tr td {
+    @apply
+        p-3
+        text-sm
+        text-gray-700
+        whitespace-nowrap
+}
