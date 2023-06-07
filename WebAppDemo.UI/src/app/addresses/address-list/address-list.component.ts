@@ -4,6 +4,10 @@ import { Address } from '../address.model';
 import { AddressService } from '../address.service';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { EditAddressDialogComponent } from '../edit-address-dialog/edit-address-dialog.component';
 
 @Component({
   selector: 'app-address-list',
@@ -21,12 +25,14 @@ export class AddressListComponent implements OnInit {
   initialSelection: [] = [];
   selection = new SelectionModel<Address>(this.multiSelection, this.initialSelection);
 
-  // Table Configuration
   @ViewChild(MatSort) sort: MatSort = new MatSort;
-  displayedColumns : string[] = ['select' ,'id', 'zipCode', 'city', 'street', 'houseNumber', 'stateName', 'countryName'];
+  displayedColumns : string[] = ['select' ,'id', 'zipCode', 'city', 'street', 'houseNumber', 'stateName', 'countryName', 'editIcon'];
+  dialog: MatDialog;
 
-  constructor(addressService: AddressService) {
+  constructor(addressService: AddressService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, matDialog: MatDialog) {
+    iconRegistry.addSvgIcon('edit', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/edit.svg'));
     this.addressService = addressService;
+    this.dialog = matDialog;
   }
 
   ngOnInit(): void {
@@ -49,4 +55,7 @@ export class AddressListComponent implements OnInit {
     this.selection.toggle(address);
   }
 
+  openEditDialog(address: Address) : void {
+    this.dialog.open(EditAddressDialogComponent, { width: '250px;', data: address});
+  }
 }
