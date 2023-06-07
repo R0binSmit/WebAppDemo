@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Navbar } from 'tw-elements';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Feature } from '../shared/feature.enum';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +7,10 @@ import { Navbar } from 'tw-elements';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  
+  @Output() featureSelection = new EventEmitter<Feature>();
+  features = Feature;
+
+  onNavigate(featureName: Feature) {
+    this.featureSelection.emit(featureName);
+  }
 }

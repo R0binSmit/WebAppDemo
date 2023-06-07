@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Feature } from './shared/feature.enum';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'WebAppDemo.UI';
+  loadedFeature: Feature = Feature.VacationType;
+  features = Feature;
 
   constructor() {
+  }
+
+  onNavigate(feature: Feature) {
+    this.loadedFeature = feature;
   }
 }

@@ -1,1 +1,12 @@
-<p>header works!</p>
+<mat-toolbar>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onNavigate(features.VacationType)">VacationTypes</button>
+        <button mat-menu-item (click)="onNavigate(features.Countries)">Countries</button>
+        <button mat-menu-item (click)="onNavigate(features.States)">States</button>
+        <button mat-menu-item (click)="onNavigate(features.Addresses)">Addresses</button>
+    </mat-menu>
+    <span>WebAppDemo</span>
+</mat-toolbar>

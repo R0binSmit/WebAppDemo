@@ -1,2 +1,5 @@
-<app-header></app-header>
-<app-vacation-list></app-vacation-list>
+<app-header (featureSelection)="onNavigate($event)"></app-header>
+<app-vacation-list *ngIf="loadedFeature === features.VacationType"></app-vacation-list>
+<app-countrie-list *ngIf="loadedFeature === features.Countries"></app-countrie-list>
+<app-state-list *ngIf="loadedFeature === features.States"></app-state-list>
+<app-address-list *ngIf="loadedFeature === features.Addresses"></app-address-list>

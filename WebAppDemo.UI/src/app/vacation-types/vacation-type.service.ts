@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../environments/environment';
-import { VacationType } from '../vacation-types/vacation-type';
+import { VacationType } from './vacation-type.model';
 
 @Injectable({
   providedIn: 'root'

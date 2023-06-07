@@ -1,35 +1,53 @@
-import { Component } from '@angular/core';
-import { VacationType } from 'src/app/vacation-types/vacation-type';
-import { VacationTypeService } from 'src/app/services/vacation-type.service';
-import { TableHeaderItem } from 'src/app/table/table-header-item';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table'
+import { VacationType } from '../vacation-type.model';
+import { VacationTypeService } from 'src/app/vacation-types/vacation-type.service';
+import { MatSort } from '@angular/material/sort';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-vacation-list',
   templateUrl: './vacation-list.component.html',
-  styleUrls: ['./vacation-list.component.scss']
+  styleUrls: ['./vacation-list.component.scss'],
 })
-export class VacationListComponent {
-  private vacationTypeService;
+export class VacationListComponent implements OnInit {
+  // Data Properties
+  dataSource: any 
   vacationTypes: VacationType[] = [];
-  tableHeaderItems: TableHeaderItem[] = [];
+  vacationTypeService: VacationTypeService;  
+
+  // Selection Properties
+  multiSelection: boolean = true;
+  initialSelection: [] = [];
+  selection = new SelectionModel<VacationType>(this.multiSelection, this.initialSelection);
+
+  // Table Configuration
+  displayedColumns: string[] = ['select', 'id', 'name' ];
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(vacationTypeService: VacationTypeService) {
     this.vacationTypeService = vacationTypeService;
-
-    this.tableHeaderItems = [
-      new TableHeaderItem("id", "No."),
-      new TableHeaderItem("name", "Name"),
-      new TableHeaderItem("editIcon", "_")
-    ]
+    this.sort = new MatSort;
   }
 
   ngOnInit(): void {
     this.vacationTypeService
       .getAll()
-      .subscribe((result: VacationType[]) => (this.vacationTypes = result));
+      .subscribe(data => { 
+        this.vacationTypes = data;
+        this.dataSource = new MatTableDataSource(this.vacationTypes);
+        this.dataSource.sort = this.sort;
+        }
+      );
   }
 
-  getVacationTypes(): object[] {
-    return this.vacationTypes;
+  onVacationTypeToggleSelection(vacationType: VacationType): void {
+    this.selection.toggle(vacationType);
+  }
+
+  onToggleAllSelection() : void {
+    this.vacationTypes.forEach(vacationType => {
+      this.selection.toggle(vacationType);
+    });
   }
 }
