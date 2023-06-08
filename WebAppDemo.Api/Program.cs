@@ -26,7 +26,7 @@ builder.Services.AddDbContextFactory<DatabaseContext>(options =>
         builder.Configuration.GetConnectionString(ConfigurationHelper.WebAppDemo),
         new MySqlServerVersion(builder.Configuration.GetValue<string>(ConfigurationHelper.MySqlServerVersion))
     )
-); ;
+);
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseMySql(

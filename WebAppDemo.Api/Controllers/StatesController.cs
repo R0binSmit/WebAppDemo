@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAppDemo.Api.Exceptions;
 using WebAppDemo.DataAccess.Entities;
+using WebAppDemo.DataTransferObjects.Country;
 using WebAppDemo.DataTransferObjects.State;
 using WebAppDemo.IDataAccess.Repositories;
 using WebAppDemo.IMappers;
@@ -45,7 +46,7 @@ public class StatesController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the state.</param>
     /// <returns>The state with the given id.</returns>
-    [HttpGet("{id}")]
+    [HttpGet("GetByStateId/{stateId}")]
     public async Task<ActionResult<GetStateDto>> GetState(int id)
     {
         var state = await _stateRepository.GetAsync(id);
@@ -56,6 +57,13 @@ public class StatesController : ControllerBase
         }
 
         return _stateMapper.Map(state);
+    }
+
+    [HttpGet("GetByCountryId/{countryId}")]
+    public async Task<ActionResult<List<GetStateDto>>> GetStatesByCountryId(int countryId)
+    {
+        var states = await _stateRepository.GetStatesByCountryId(countryId);
+        return _stateMapper.Map(states);
     }
 
     /// <summary>

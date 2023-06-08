@@ -19,4 +19,8 @@ export class StateService {
   public get(id: number) {
     return this.httpClient.get<State>(`${environment.apiUrl}/${this.url}/${id}`)
   }
+
+  public getByCountryId(countryId: number): Observable<State[]> {
+    return this.httpClient.get<State[]>(`${environment.apiUrl}/${this.url}/GetByCountryId/${countryId}`)
+  }
 }

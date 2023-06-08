@@ -1,4 +1,4 @@
-import { Country } from "../countries/countrie.model";
+import { Country } from "../countries/country.model";
 
 export interface State {
     id: number;

@@ -36,4 +36,13 @@ public class StateRepository : GenericRepository<State>, IStateRepository<State>
 
         return !(state == null);
     }
+
+    public async Task<List<State>> GetStatesByCountryId(int countryId)
+    {
+        return await _context
+            .Set<State>()
+            .Where(state => countryId == state.CountryId)
+            .Include(state => state.Country)
+            .ToListAsync();
+    }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Country } from '../countrie.model';
-import { CountrieService } from '../countrie.service';
+import { Country } from '../country.model';
+import { CountryService } from '../country.service';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -15,7 +15,7 @@ export class CountrieListComponent implements OnInit {
   // Data Properties
   dataSource: any;
   countries: Country[] = [];
-  countrieService: CountrieService;
+  countryService: CountryService;
 
     // Selection Properties
     multiSelection: boolean = true;
@@ -26,13 +26,13 @@ export class CountrieListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[] = ["select", "id", "fullName", "shortName"];
   
-  constructor(countrieService: CountrieService ) {
-    this.countrieService = countrieService;
+  constructor(countryService: CountryService ) {
+    this.countryService = countryService;
     this.sort = new MatSort();
   }
 
   ngOnInit(): void {
-      this.countrieService
+      this.countryService
         .getAll()
         .subscribe(data => {
           this.countries = data;

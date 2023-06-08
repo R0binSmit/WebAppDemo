@@ -1,4 +1,4 @@
-.btn-submit {
+.btn-cancel {
     @apply
         rounded-md
         py-2
@@ -8,8 +8,8 @@
         font-bold
         text-gray-200
         cursor-pointer
-        tracking-wider
-        bg-green-600
+        tracking-wide
+        bg-red-600
         mx-2
         my-2
 }

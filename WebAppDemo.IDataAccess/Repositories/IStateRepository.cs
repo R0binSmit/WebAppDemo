@@ -5,4 +5,5 @@ namespace WebAppDemo.IDataAccess.Repositories;
 public  interface IStateRepository<T> : IGenericRepository<T>
 {
     Task<bool> IsNameAward(string name);
+    Task<List<T>> GetStatesByCountryId(int countryId);
 }

@@ -26,4 +26,10 @@ public class DatabaseContext : DbContext
         new AddressConfiguration().Configure(modelBuilder.Entity<Address>());
         new CountryConfiguration().Configure(modelBuilder.Entity<Country>());
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.EnableSensitiveDataLogging();
+    }
 }

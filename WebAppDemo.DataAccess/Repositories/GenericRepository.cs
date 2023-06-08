@@ -33,6 +33,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     public virtual async Task<bool> ExistsAsync(int id)
     {
         var entity = await GetAsync(id);
+        _context.ChangeTracker.Clear();
         return entity != null;
     }
 

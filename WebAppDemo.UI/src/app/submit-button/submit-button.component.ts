@@ -8,12 +8,4 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export class SubmitButtonComponent {
   @Input() value: string = "";
-
-  constructor() {
-
-  }
-
-  ngOnInit(): void {
-    
-  }
 }

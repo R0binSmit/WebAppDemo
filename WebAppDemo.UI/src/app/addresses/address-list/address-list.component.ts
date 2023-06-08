@@ -56,6 +56,6 @@ export class AddressListComponent implements OnInit {
   }
 
   openEditDialog(address: Address) : void {
-    this.dialog.open(EditAddressDialogComponent, { width: '250px;', data: address});
+    this.dialog.open(EditAddressDialogComponent, { data: address});
   }
 }
