@@ -1,5 +1,8 @@
 <h1>Addresses</h1>
 <div class="tableContainer">
+    <div>
+        <mat-icon svgIcon="create" (click)="onOpenCreateDialog()" class="pointer" />
+    </div>
     <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
@@ -41,6 +44,12 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let address" style="width: 50px;">
                 <mat-icon svgIcon="edit" (click)="openEditDialog(address)" class="pointer"></mat-icon>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="deleteIcon">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let address" style="width: 50px;">
+                <mat-icon svgIcon="delete" (click)="onDeleteAddress(address.id)" class="pointer"></mat-icon>
             </td>
         </ng-container>
     

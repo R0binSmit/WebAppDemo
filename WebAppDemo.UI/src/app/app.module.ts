@@ -21,7 +21,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelect, MatSelectModule} from '@angular/material/select';
+import { MatSelectModule} from '@angular/material/select';
 
 // Component imports
 import { CountrieListComponent } from './countries/countrie-list/countrie-list.component';
@@ -32,6 +32,8 @@ import { SubmitButtonComponent } from './submit-button/submit-button.component';
 import { HeaderComponent } from './header/header.component';
 import { VacationListComponent } from './vacation-types/vacation-list/vacation-list.component';
 import { CancelButtonComponent } from './cancel-button/cancel-button.component';
+import { SuccessMessageComponent } from './success-message/success-message.component';
+import { CreateAddressDialogComponent } from './addresses/create-address-dialog/create-address-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { CancelButtonComponent } from './cancel-button/cancel-button.component';
     StateListComponent,
     AddressListComponent,
     EditAddressDialogComponent,
-    CancelButtonComponent
+    CancelButtonComponent,
+    SuccessMessageComponent,
+    CreateAddressDialogComponent
   ],
   imports: [
     BrowserModule,

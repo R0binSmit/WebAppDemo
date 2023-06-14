@@ -78,14 +78,7 @@ public class AddressesController : ControllerBase
         }
 
         await _addressRepository.AddAsync(address);
-        var newAddress = _addressRepository.GetAsync(address.Id);
-
-        if (newAddress == null)
-        {
-            throw new NotFoundException("Can't finde created address.");
-        }
-
-        return CreatedAtAction("GetAddress", new { id = address.Id }, _addressMapper.Map(address));
+        return CreatedAtAction("GetAddress", new { id = address.Id }, address);
     }
 
     /// <summary>
@@ -111,7 +104,12 @@ public class AddressesController : ControllerBase
         }
 
         await _addressRepository.UpdateAsync(address);
-        return Ok();
+        return Ok(new Message
+        {
+            MessageType = MessageType.Success,
+            Title = "Success",
+            Description = "Address was successfully updated.",
+        });
     }
 
     /// <summary>
@@ -129,7 +127,7 @@ public class AddressesController : ControllerBase
             throw new NotFoundException($"Can't delete address because there is no address with the given id ({id}).");
         }
 
-        await _addressRepository.UpdateAsync(address);
+        await _addressRepository.DeleteAsync(id);
         return NoContent();
     }
 }

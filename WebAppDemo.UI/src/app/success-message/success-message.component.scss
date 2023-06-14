@@ -1,0 +1,33 @@
+.messageBox {
+    @apply
+        rounded-lg
+        absolute
+        bottom-0
+        right-0
+        bg-green-600
+        p-3
+        m-2
+        align-text-top
+}
+
+.title {
+    @apply
+        font-bold
+        text-gray-100
+        text-base
+}
+
+.description {
+    @apply
+        pt-3
+        text-gray-100
+}
+
+.closeIcon {
+    @apply
+        absolute
+        right-1
+        top-1
+        text-white
+        
+}

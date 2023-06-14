@@ -33,15 +33,16 @@ public class GlobalExceptionHandler
     {
         context.Response.ContentType = "application/json";
 
-        var error = new Error
+        var message = new Message
         {
-            Message = exception.Message,
-            Type = exception.GetType().ToString()
+            MessageType = MessageType.Error,
+            Title = exception.GetType().ToString(),
+            Description = exception.Message,
         };
 
-        _logger.LogError(exception, error.Message);
+        _logger.LogError(exception, message.Description);
         context.Response.StatusCode = IdentifyHttpStatusCode(exception);
-        return context.Response.WriteAsync(JsonConvert.SerializeObject(error));
+        return context.Response.WriteAsync(JsonConvert.SerializeObject(message));
     }
 
     private int IdentifyHttpStatusCode(Exception exception)
