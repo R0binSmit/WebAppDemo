@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Routes, RouterModule } from '@angular/router';
 
 // Angular Material imports
 import { MatTableModule } from '@angular/material/table';
@@ -34,6 +35,14 @@ import { VacationListComponent } from './vacation-types/vacation-list/vacation-l
 import { CancelButtonComponent } from './cancel-button/cancel-button.component';
 import { SuccessMessageComponent } from './success-message/success-message.component';
 import { CreateAddressDialogComponent } from './addresses/create-address-dialog/create-address-dialog.component';
+
+const appRoutes: Routes = [
+  {path: '', component: VacationListComponent},
+  {path: 'vacationTypes', component: VacationListComponent},
+  {path: 'countries', component: CountrieListComponent},
+  {path: 'states', component: StateListComponent},
+  {path: 'addresses', component: AddressListComponent},
+];
 
 @NgModule({
   declarations: [
@@ -66,7 +75,8 @@ import { CreateAddressDialogComponent } from './addresses/create-address-dialog/
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

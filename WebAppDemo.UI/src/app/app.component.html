@@ -1,6 +1,2 @@
-<app-header (featureSelection)="onNavigate($event)"></app-header>
-<app-vacation-list *ngIf="loadedFeature === features.VacationType"></app-vacation-list>
-<app-countrie-list *ngIf="loadedFeature === features.Countries"></app-countrie-list>
-<app-state-list *ngIf="loadedFeature === features.States"></app-state-list>
-<app-address-list *ngIf="loadedFeature === features.Addresses"></app-address-list>
-<app-success-message [visible]="false" description="Test Success"></app-success-message>
+<app-header></app-header>
+<router-outlet></router-outlet>

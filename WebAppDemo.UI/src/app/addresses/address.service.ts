@@ -1,5 +1,5 @@
 import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../environments/environment';
 import { Address } from './address.model';
@@ -11,8 +11,15 @@ import { CreateAddressDto } from './create-address-dialog/create-address.model';
 })
 export class AddressService {
   private url = "Addresses"
+  addressesChanged = new EventEmitter<Address[]>();
 
   constructor(private httpClient: HttpClient) { }
+
+  private getAllAddresses(): Address[] {
+    let addresses: Address[] = [];
+    this.getAll().subscribe(data => { addresses = data; });
+    return addresses;
+  }
 
   public getAll(): Observable<Address[]> {
     return this.httpClient.get<Address[]>(`${environment.apiUrl}/${this.url}`);
@@ -23,14 +30,20 @@ export class AddressService {
   }
 
   public update(address: UpdateAddressDto) : Observable<any> {
-    return this.httpClient.put<any>(`${environment.apiUrl}/${this.url}`, address);
+    let result = this.httpClient.put<any>(`${environment.apiUrl}/${this.url}`, address);
+    this.addressesChanged.emit(this.getAllAddresses());
+    return result;
   }
 
   public create(addres: CreateAddressDto): Observable<Address> {
-    return this.httpClient.post<Address>(`${environment.apiUrl}/${this.url}`, addres);
+    let restult =  this.httpClient.post<Address>(`${environment.apiUrl}/${this.url}`, addres);
+    this.addressesChanged.emit(this.getAllAddresses());
+    return restult;
   }
 
   public delete(addressId: number): Observable<any> {
-    return this.httpClient.delete<any>(`${environment.apiUrl}/${this.url}/${addressId}`,);
+    let result = this.httpClient.delete<any>(`${environment.apiUrl}/${this.url}/${addressId}`,);
+    this.addressesChanged.emit(this.getAllAddresses());
+    return result;
   }
 }

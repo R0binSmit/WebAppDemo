@@ -51,6 +51,12 @@ export class AddressListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.sort = this.sort;
     });
+
+    this.addressService.addressesChanged.subscribe(data => {
+      this.addresses = data;
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
+    });
   }
 
   onToggleAllSelection() : void {
@@ -68,31 +74,15 @@ export class AddressListComponent implements OnInit {
   }
 
   onOpenCreateDialog(): void {
-    let dialog = this.dialog.open(CreateAddressDialogComponent);
-      dialog.afterClosed().subscribe(result => {
-        this.addressService
-        .getAll()
-        .subscribe(data => {
-          this.addresses = data;
-          this.dataSource = new MatTableDataSource(data);
-          this.dataSource.sort = this.sort;
-      });
-    })
+    this.dialog.open(CreateAddressDialogComponent);
   }
 
   async onDeleteAddress(addressId: number): Promise<void> {
     this.addressService.delete(addressId).subscribe();
-    await this.delay(200);
-    this.addressService
-      .getAll()
-      .subscribe(data => {
-        this.addresses = data;
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.sort = this.sort;
-    });
   }
 
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
+ 

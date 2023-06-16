@@ -3,10 +3,11 @@
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="onNavigate(features.VacationType)">VacationTypes</button>
-        <button mat-menu-item (click)="onNavigate(features.Countries)">Countries</button>
-        <button mat-menu-item (click)="onNavigate(features.States)">States</button>
-        <button mat-menu-item (click)="onNavigate(features.Addresses)">Addresses</button>
+        <button mat-menu-item routerLink="">Home</button>
+        <button mat-menu-item routerLink="/vacationTypes">VacationTypes</button>
+        <button mat-menu-item routerLink="/countries">Countries</button>
+        <button mat-menu-item routerLink="/states">States</button>
+        <button mat-menu-item routerLink="addresses">Addresses</button>
     </mat-menu>
     <span>WebAppDemo</span>
 </mat-toolbar>
