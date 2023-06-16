@@ -9,17 +9,19 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { EditAddressDialogComponent } from '../edit-address-dialog/edit-address-dialog.component';
 import { CreateAddressDialogComponent } from '../create-address-dialog/create-address-dialog.component';
+import { IconType } from 'src/app/shared/iconType.enum';
+import { IconHelper } from 'src/app/shared/iconHelper';
+import { UseIcon } from 'src/app/shared/useIcon.interface';
 
 @Component({
   selector: 'app-address-list',
   templateUrl: './address-list.component.html',
   styleUrls: ['./address-list.component.scss']
 })
-export class AddressListComponent implements OnInit {
+export class AddressListComponent implements OnInit, UseIcon {
   // Data Properties
   dataSource: any;
   addresses: Address[] = [];
-  addressService: AddressService;
 
   // Sort Properties
   multiSelection: boolean = true;
@@ -27,20 +29,24 @@ export class AddressListComponent implements OnInit {
   selection = new SelectionModel<Address>(this.multiSelection, this.initialSelection);
 
   @ViewChild(MatSort) sort: MatSort = new MatSort;
-  displayedColumns : string[] = ['select' ,'id', 'zipCode', 'city', 'street', 'houseNumber', 'stateName', 'countryName', 'editIcon', 'deleteIcon'];
-  dialog: MatDialog;
+
+  // Static data
+  displayedColumns : string[] = ['select' ,'id', 'zipCode', 'city', 'street', 'houseNumber', 'stateName', 'countryName', 'detailsIcon', 'editIcon', 'deleteIcon'];
+  iconType = IconType;
+  iconTypes: IconType[] =  [
+    IconType.Create,
+    IconType.Delete,
+    IconType.Details,
+    IconType.Edit
+  ];
 
   constructor(
-    addressService: AddressService,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
-    matDialog: MatDialog
-    ) {
-    iconRegistry.addSvgIcon('edit', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/edit.svg'));
-    iconRegistry.addSvgIcon('create', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/create.svg'));
-    iconRegistry.addSvgIcon('delete', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/delete.svg'));
-    this.addressService = addressService;
-    this.dialog = matDialog;
+    public addressService: AddressService,
+    public matIconRegistry: MatIconRegistry,
+    public domSanitizer: DomSanitizer,
+    public dialog: MatDialog) 
+  {
+    IconHelper.registerIcons(this.iconTypes, this.matIconRegistry, this.domSanitizer);
   }
 
   ngOnInit(): void {

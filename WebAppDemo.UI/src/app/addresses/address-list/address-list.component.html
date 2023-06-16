@@ -1,9 +1,10 @@
 <h1>Addresses</h1>
 <div class="tableContainer">
     <div>
-        <mat-icon svgIcon="create" (click)="onOpenCreateDialog()" class="pointer" />
+        <mat-icon svgIcon="{{ iconType.Create }}" (click)="onOpenCreateDialog()" class="pointer" />
     </div>
     <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Select column -->
         <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
                 <mat-checkbox (change)="onToggleAllSelection()"></mat-checkbox>
@@ -12,6 +13,8 @@
                 <mat-checkbox (change)="onAddressToggleSelection(address)" ></mat-checkbox>
             </td>
         </ng-container>
+
+        <!-- Data Columns -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
             <td mat-cell *matCellDef="let address">{{ address.id }}</td>
@@ -40,16 +43,24 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
             <td mat-cell *matCellDef="let address">{{ address.state.country.fullName }}</td>
         </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="detailsIcon">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let address" style="width: 50px;">
+                <mat-icon svgIcon="{{ iconType.Details }}" (click)="openEditDialog(address)" class="pointer"></mat-icon>
+            </td>
+        </ng-container>
         <ng-container matColumnDef="editIcon">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let address" style="width: 50px;">
-                <mat-icon svgIcon="edit" (click)="openEditDialog(address)" class="pointer"></mat-icon>
+                <mat-icon svgIcon="{{ iconType.Edit }}" (click)="openEditDialog(address)" class="pointer"></mat-icon>
             </td>
         </ng-container>
         <ng-container matColumnDef="deleteIcon">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let address" style="width: 50px;">
-                <mat-icon svgIcon="delete" (click)="onDeleteAddress(address.i)" class="pointer"></mat-icon>
+                <mat-icon svgIcon="{{ iconType.Delete }}" (click)="onDeleteAddress(address.i)" class="pointer"></mat-icon>
             </td>
         </ng-container>
     

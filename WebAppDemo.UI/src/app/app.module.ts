@@ -25,7 +25,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule} from '@angular/material/select';
 
 // Component imports
-import { CountrieListComponent } from './countries/countrie-list/countrie-list.component';
 import { StateListComponent } from './states/state-list/state-list.component';
 import { AddressListComponent } from './addresses/address-list/address-list.component';
 import { EditAddressDialogComponent } from './addresses/edit-address-dialog/edit-address-dialog.component';
@@ -35,11 +34,14 @@ import { VacationListComponent } from './vacation-types/vacation-list/vacation-l
 import { CancelButtonComponent } from './cancel-button/cancel-button.component';
 import { SuccessMessageComponent } from './success-message/success-message.component';
 import { CreateAddressDialogComponent } from './addresses/create-address-dialog/create-address-dialog.component';
+import { CountriesComponent } from './countries/countries.component';
+import { CountryListComponent } from './countries/country-list/country-list.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   {path: '', component: VacationListComponent},
   {path: 'vacationTypes', component: VacationListComponent},
-  {path: 'countries', component: CountrieListComponent},
+  {path: 'countries', component: CountriesComponent},
   {path: 'states', component: StateListComponent},
   {path: 'addresses', component: AddressListComponent},
 ];
@@ -50,13 +52,15 @@ const appRoutes: Routes = [
     SubmitButtonComponent,
     VacationListComponent,
     HeaderComponent,
-    CountrieListComponent,
     StateListComponent,
     AddressListComponent,
     EditAddressDialogComponent,
     CancelButtonComponent,
     SuccessMessageComponent,
-    CreateAddressDialogComponent
+    CreateAddressDialogComponent,
+    CountriesComponent,
+    CountryListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

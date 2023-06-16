@@ -1,6 +1,11 @@
+
 <h1>Countries</h1>
 <div class="tableContainer">
+    <div>
+        <mat-icon svgIcon="{{ iconType.Create }}" class="pointer" />
+    </div>
     <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Selec Column -->
         <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
                 <mat-checkbox (change)="onToggleAllSelection()"></mat-checkbox>
@@ -9,6 +14,8 @@
                 <mat-checkbox (change)="onCountryToggleSelection(country)"></mat-checkbox>
             </td>
         </ng-container>
+
+        <!-- Data Columns -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
             <td mat-cell *matCellDef="let country">{{ country.id }}</td>
@@ -20,6 +27,26 @@
         <ng-container matColumnDef="shortName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Short</th>
             <td mat-cell *matCellDef="let country">{{ country.shortName }}</td>
+        </ng-container>
+
+        <!-- Acton Columns -->
+        <ng-component matColumnDef="detailsIcon">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let country" style="width: 50px;">
+                <mat-icon svgIcon="{{ iconType.Details }}" class="pointer"></mat-icon>
+            </td>
+        </ng-component>
+        <ng-contrainer matColumnDef="editIcon">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let country" style="width: 50px;">
+                <mat-icon svgIcon="{{ iconType.Edit }}" class="pointer"></mat-icon>
+            </td>
+        </ng-contrainer>
+        <ng-container matColumnDef="deleteIcon">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let country" style="width: 50px;">
+                <mat-icon svgIcon="{{ iconType.Delete }}" class="pointer" ></mat-icon>
+            </td>
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
