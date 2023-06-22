@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CountryService } from '../country.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Country } from '../country.model';
 
 @Component({
@@ -23,17 +23,13 @@ export class CountryEditComponent implements OnInit {
   {
     // Define From and FormControls. 
     this.form = new FormGroup({
-      shortName: new FormControl(
-        this.country.shortName,
-        [
+      shortName: new FormControl('', [
           Validators.required,
           Validators.maxLength(2),
           Validators.minLength(2)
         ]
       ),
-      fullName: new FormControl(
-        this.country.fullName,
-        [
+      fullName: new FormControl('', [
           Validators.required
         ]
       )

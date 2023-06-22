@@ -13,9 +13,9 @@
         <mat-label>Short name</mat-label>
         <input 
             matInput
+            appUpperCase
             matNativeControl
             formControlName="shortName"
-            appUpperCase
         />
         <mat-error *ngIf="shortName?.hasError('required')">Short name is required.</mat-error>
         <mat-error *ngIf="shortName?.hasError('minlength')">The minumum lengh of short name is two.</mat-error>
