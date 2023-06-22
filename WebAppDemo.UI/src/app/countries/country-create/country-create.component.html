@@ -3,27 +3,27 @@
     <mat-form-field id="fullName">
         <mat-label>Full name</mat-label>
         <input 
-            #fullName
+            #fullNameElement
             matInput
-            required
+            matNativeControl
             formControlName="fullName"
         />
-        <mat-error *ngIf="getFullName()?.value == null || getFullName()?.value == ''">Full name is required.</mat-error>
+        <mat-error *ngIf="fullName?.hasError('required')">Full name is required.</mat-error>
     </mat-form-field>
     <mat-form-field id="shortName">
         <mat-label>Short name</mat-label>
         <input 
             matInput
-            required
-            minlength="2"
-            maxlength="2"
+            appUpperCase
+            matNativeControl
             formControlName="shortName"
-            (keyup)="onKeyUpShortName()"
         />
-        <mat-error *ngIf="getShortName()?.value == null || getShortName()?.value.length != 2">The short name must be two characters long.</mat-error>
+        <mat-error *ngIf="shortName?.hasError('required')">Short name is required.</mat-error>
+        <mat-error *ngIf="shortName?.hasError('minlength')">The minumum lengh of short name is two.</mat-error>
+        <mat-error *ngIf="shortName?.hasError('maxlength')">The maximum length of short name is two.</mat-error>
     </mat-form-field>
     <div>
-        <app-submit-button value="Create" [disabled]="!isFormValid()"></app-submit-button>
+        <app-submit-button value="Create" [disabled]="!form.valid"></app-submit-button>
         <app-cancel-button value="Cancel"routerLink="/countries"></app-cancel-button>
     </div>
 </form>

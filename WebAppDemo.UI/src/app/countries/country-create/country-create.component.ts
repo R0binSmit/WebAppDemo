@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule  } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CountryService } from '../country.service';
 import { Country } from '../country.model';
@@ -9,49 +9,39 @@ import { Country } from '../country.model';
   templateUrl: './country-create.component.html',
   styleUrls: ['./country-create.component.scss']
 })
-export class CountryCreateComponent implements AfterViewInit {
+export class CountryCreateComponent implements OnInit {
   form: FormGroup = new FormGroup([]);
-  @ViewChild('fullName') fullName!: ElementRef;
+  @ViewChild('fullNameElement') fullNameElement!: ElementRef;
 
   constructor(
     public countryService: CountryService,
     private router: Router
   ) {
     this.form = new FormGroup({
-      shortName: new FormControl(),
-      fullName: new FormControl()
+      shortName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(2)
+      ]),
+      fullName: new FormControl('', [
+        Validators.required
+      ])
     });
    }
 
-  ngAfterViewInit(): void {
-    this.fullName.nativeElement.focus();
-  }
+  get shortName() { return this.form.get('shortName'); }
+  get fullName() { return this.form.get('fullName'); }
 
-  getShortName(): AbstractControl<any, any>|null {
-    return this.form.get('shortName');
-  }
-
-  getFullName(): AbstractControl<any, any>|null {
-    return this.form.get('fullName');
+  ngOnInit(): void {
+    this.fullNameElement.nativeElement.focus();
   }
 
   createCountry(): void {
-    let shortName = this.getShortName();
-    let fullName = this.getFullName();
-
-    if (shortName?.valid == true && fullName?.valid == true) {
-      let country: Country = new Country(0, shortName?.value, fullName?.value);
+    if (this.shortName?.valid == true && this.fullName?.valid == true) {
+      let country: Country = new Country(0, this.shortName?.value, this.fullName?.value);
       this.countryService.create(country).subscribe(null, null, () => {
         this.router.navigate(['/countries']);
       });
     }
-  }
-
-  isFormValid(): boolean {
-    return this.getShortName()?.valid == true && this.getFullName()?.valid == true;
-  }
-
-  onKeyUpShortName(): void {
-    this.getShortName()?.setValue(this.getShortName()?.value.toUpperCase());
   }
 }
