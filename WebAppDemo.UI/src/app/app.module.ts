@@ -40,6 +40,7 @@ import { HomeComponent } from './home/home.component';
 import { CountryDetailsComponent } from './countries/country-details/country-details.component';
 import { CountryEditComponent } from './countries/country-edit/country-edit.component';
 import { CountryCreateComponent } from './countries/country-create/country-create.component';
+import { UpperCaseDirective } from './upper-case.directive';
 
 const appRoutes: Routes = [
   {path: '', component: VacationListComponent},
@@ -68,7 +69,8 @@ const appRoutes: Routes = [
     HomeComponent,
     CountryDetailsComponent,
     CountryEditComponent,
-    CountryCreateComponent
+    CountryCreateComponent,
+    UpperCaseDirective
   ],
   imports: [
     BrowserModule,

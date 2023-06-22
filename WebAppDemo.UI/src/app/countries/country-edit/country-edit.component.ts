@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CountryService } from '../country.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Country } from '../country.model';
 
 @Component({
@@ -9,60 +9,97 @@ import { Country } from '../country.model';
   templateUrl: './country-edit.component.html',
   styleUrls: ['./country-edit.component.scss']
 })
-export class CountryEditComponent implements OnInit, AfterViewInit {
+export class CountryEditComponent implements OnInit {
+  // Setup data properties with init values.
   countryId: number = 0;
   country: Country = new Country(0, "", "");
   form: FormGroup = new FormGroup([]);
-  @ViewChild('fullName') fullName!: ElementRef;
+  @ViewChild('fullNameElement') fullNameElement!: ElementRef;
 
   constructor (
     private countryService: CountryService,
     private router: Router,
-    private route: ActivatedRoute
-    ) {
-      this.form = new FormGroup({
-        shortName: new FormControl(),
-        fullName: new FormControl()
-      });
-  }
-  ngAfterViewInit(): void {
-    this.fullName.nativeElement.focus();
-    let fullName = this.getFullName();
-    let shortName = this.getShortName();
-
-    if (fullName !== null && shortName !== null) {
-      fullName.setValue(this.country.fullName);
-      shortName.setValue(this.country.shortName)
-    }    
-  }
-
-  ngOnInit(): void {
-    this.countryId = Number(this.route.snapshot.paramMap.get('id'));
-    this.countryService.get(this.countryId).subscribe(data => {
-      this.country = data
+    private route: ActivatedRoute) 
+  {
+    // Define From and FormControls. 
+    this.form = new FormGroup({
+      shortName: new FormControl(
+        this.country.shortName,
+        [
+          Validators.required,
+          Validators.maxLength(2),
+          Validators.minLength(2)
+        ]
+      ),
+      fullName: new FormControl(
+        this.country.fullName,
+        [
+          Validators.required
+        ]
+      )
     });
   }
 
-  getShortName(): AbstractControl<any, any>|null {
-    return this.form.get('shortName');
+  // FormControl Getters.
+  get shortName() { return this.form.get('shortName'); }
+  get fullName() { return this.form.get('fullName'); }
+
+  /**
+   * Setup model binding to FormControls.
+   */
+  setupBindings(): void {
+    this.shortName?.valueChanges.subscribe(value => {
+      this.country.shortName = value;
+    });
+
+    this.fullName?.valueChanges.subscribe(value => {
+      this.country.fullName = value;
+    });
   }
 
-  getFullName(): AbstractControl<any, any>|null {
-    return this.form.get('fullName');
+  /**
+   * Set init values to FormControls by country values.
+   * Country values are inited after the ngOnInit function.
+   */
+  setInitFormValues(): void {
+    this.shortName?.setValue(this.country.shortName);
+    this.fullName?.setValue(this.country.fullName);
+    this.fullNameElement.nativeElement.focus();
   }
 
-  isFormValid(): boolean {
-    return this.getShortName()?.valid == true && this.getFullName()?.valid == true;
+  /**
+   * Navigate to country list. 
+   */
+  navigateToCountryList(): void {
+    this.router.navigate(['/countries']);
   }
 
-  onKeyUpShortName(): void {
-    this.getShortName()?.setValue(this.getShortName()?.value.toUpperCase());
+  /**
+   * Loading all data by router parameter and setup FormControl values/bindings.
+   * Error loading country data by id => navigate back to country list.
+   * TODO: add error message.
+   */
+  ngOnInit(): void {
+    this.countryId = Number(this.route.snapshot.paramMap.get('id'));
+    this.countryService.get(this.countryId).subscribe(
+      data => { this.country = data },
+      () => this.navigateToCountryList(),
+      () => this.setInitFormValues()
+    );
+    this.setupBindings();
   }
-
+  
+  /**
+   * Update country by model.
+   * Error => TODO: navigate back to country list with error message. 
+   * Complete => navigate back to country list with out an message.
+   */
   editCountry(): void {
     if(this.country.id !== 0) {
       this.countryService.update(this.country).subscribe(
-        null, null, () => this.router.navigate(['/countries'])
+        null,
+        null,
+        () => this.navigateToCountryList()
       );
     }
   }
