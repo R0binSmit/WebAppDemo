@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { Country } from '../country.model';
+import { ICountry } from '../country.interface';
 import { CountryService } from '../country.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { UseIcon } from 'src/app/shared/useIcon.interface';
@@ -10,6 +10,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IconHelper } from 'src/app/shared/iconHelper';
 import { IconType } from 'src/app/shared/iconType.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-country-list',
@@ -19,12 +20,13 @@ import { IconType } from 'src/app/shared/iconType.enum';
 export class CountryListComponent implements UseIcon {
     // Data Properties
     dataSource: any;
-    countries: Country[] = [];
+    countries: ICountry[] = [];
+    @Output() selectCountry = new EventEmitter<ICountry>();
   
     // Selection Properties
     multiSelection: boolean = true;
     initialSelection: [] = [];
-    selection = new SelectionModel<Country>(this.multiSelection, this.initialSelection);
+    selection = new SelectionModel<ICountry>(this.multiSelection, this.initialSelection);
   
     // Table Configuration
     @ViewChild(MatSort) sort: MatSort = new MatSort();;
@@ -38,22 +40,27 @@ export class CountryListComponent implements UseIcon {
     ]
 
     constructor(
-      public countryService: CountryService,
+      private countryService: CountryService,
       public matIconRegistry: MatIconRegistry,
-      public domSanitizer: DomSanitizer
+      public domSanitizer: DomSanitizer,
+      private router: Router
     )
     {
       IconHelper.registerIcons(this.iconTypes, this.matIconRegistry, this.domSanitizer);
     }
+
+    loadAllCountries(): void {
+      this.countryService
+      .getAll()
+      .subscribe(data => {
+        this.countries = data;
+        this.dataSource = new MatTableDataSource(this.countries);
+        this.dataSource.sort = this.sort;
+      });
+    }
   
     ngOnInit(): void {
-        this.countryService
-          .getAll()
-          .subscribe(data => {
-            this.countries = data;
-            this.dataSource = new MatTableDataSource(this.countries);
-            this.dataSource.sort = this.sort;
-        });
+      this.loadAllCountries();
     }
   
     onToggleAllSelection() : void {
@@ -62,7 +69,19 @@ export class CountryListComponent implements UseIcon {
       });
     }
   
-    onCountryToggleSelection(country: Country) : void {
+    onCountryToggleSelection(country: ICountry) : void {
       this.selection.toggle(country);
+    }
+
+    onSelectCountry(country: ICountry): void {
+      this.selectCountry.emit(country);
+    }
+
+    async onDeleteCountry(countryId: number): Promise<void> {
+      this.countryService.delete(countryId).subscribe(null, null, this.loadAllCountries);
+    }
+
+    delay(time: number): any {
+      return new Promise(resolve => setTimeout(resolve, time));
     }
 }

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -37,11 +37,16 @@ import { CreateAddressDialogComponent } from './addresses/create-address-dialog/
 import { CountriesComponent } from './countries/countries.component';
 import { CountryListComponent } from './countries/country-list/country-list.component';
 import { HomeComponent } from './home/home.component';
+import { CountryDetailsComponent } from './countries/country-details/country-details.component';
+import { CountryEditComponent } from './countries/country-edit/country-edit.component';
+import { CountryCreateComponent } from './countries/country-create/country-create.component';
 
 const appRoutes: Routes = [
   {path: '', component: VacationListComponent},
   {path: 'vacationTypes', component: VacationListComponent},
   {path: 'countries', component: CountriesComponent},
+  {path: 'countries/create', component: CountryCreateComponent},
+  {path: 'countries/edit/:id', component: CountryEditComponent},
   {path: 'states', component: StateListComponent},
   {path: 'addresses', component: AddressListComponent},
 ];
@@ -60,7 +65,10 @@ const appRoutes: Routes = [
     CreateAddressDialogComponent,
     CountriesComponent,
     CountryListComponent,
-    HomeComponent
+    HomeComponent,
+    CountryDetailsComponent,
+    CountryEditComponent,
+    CountryCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +87,7 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSelectModule,
     RouterModule.forRoot(appRoutes)
   ],

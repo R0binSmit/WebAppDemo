@@ -3,7 +3,7 @@ import { CountryService } from 'src/app/countries/country.service';
 import { StateService } from 'src/app/states/state.service';
 import { AddressService } from '../address.service';
 import { CreateAddressDto } from './create-address.model';
-import { Country } from 'src/app/countries/country.model';
+import { ICountry } from 'src/app/countries/country.interface';
 import { State } from 'src/app/states/state.model';
 
 @Component({
@@ -17,7 +17,7 @@ export class CreateAddressDialogComponent implements OnInit {
   addressService: AddressService;
   
   address: CreateAddressDto;
-  countries: Country[] = [];
+  countries: ICountry[] = [];
   states: State[] = [];
 
   constructor(

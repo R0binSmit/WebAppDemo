@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Address } from '../address.model';
 import { CountryService } from 'src/app/countries/country.service';
 import { StateService } from 'src/app/states/state.service';
-import { Country } from 'src/app/countries/country.model';
+import { ICountry } from 'src/app/countries/country.interface';
 import { State } from 'src/app/states/state.model';
 import { AddressService } from '../address.service';
 import { UpdateAddressDto } from './updateAddress.model';
@@ -20,13 +20,13 @@ export class EditAddressDialogComponent implements OnInit {
   address: Address;
   countryService: CountryService;
   addressService: AddressService;
-  countries: Country[] = [];
+  countries: ICountry[] = [];
   stateService: StateService;
   states: State[] = [];
 
   constructor(
     dialogRef: MatDialogRef<EditAddressDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data: Address,
+    @Inject(MAT_DIALOG_DATA) address: Address,
     countryService: CountryService,
     stateService: StateService,
     addressService: AddressService)
@@ -35,7 +35,7 @@ export class EditAddressDialogComponent implements OnInit {
     this.stateService = stateService;
     this.addressService = addressService;
     this.dialogRef = dialogRef;
-    this.address = data;
+    this.address = address;
   }
 
   ngOnInit(): void {

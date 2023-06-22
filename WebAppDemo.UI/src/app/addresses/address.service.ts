@@ -42,7 +42,7 @@ export class AddressService {
   }
 
   public delete(addressId: number): Observable<any> {
-    let result = this.httpClient.delete<any>(`${environment.apiUrl}/${this.url}/${addressId}`,);
+    let result = this.httpClient.delete<any>(`${environment.apiUrl}/${this.url}/${addressId}`);
     this.addressesChanged.emit(this.getAllAddresses());
     return result;
   }

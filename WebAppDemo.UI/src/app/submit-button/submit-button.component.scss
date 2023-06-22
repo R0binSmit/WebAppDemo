@@ -5,11 +5,23 @@
         px-3
         uppercase
         text-xs
-        font-bold
-        text-gray-200
-        cursor-pointer
+        font-bold    
         tracking-wider
-        bg-green-600
         mx-2
         my-2
+}
+
+.btn-submit:enabled {
+    @apply
+
+        text-gray-200
+        cursor-pointer
+        bg-green-600
+
+}
+
+.btn-submit:disabled {
+    @apply
+        text-gray-950
+        bg-gray-400
 }

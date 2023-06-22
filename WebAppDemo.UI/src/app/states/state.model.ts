@@ -1,7 +1,7 @@
-import { Country } from "../countries/country.model";
+import { ICountry } from "../countries/country.interface";
 
 export interface State {
     id: number;
     name: string;
-    country: Country;
+    country: ICountry;
 }

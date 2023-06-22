@@ -1,1 +1,2 @@
-<app-country-list></app-country-list>
+<app-country-list (selectCountry)="onSelectCountry($event)"></app-country-list>
+<app-country-details [country]="selectedCountry"></app-country-details>

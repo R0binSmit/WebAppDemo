@@ -1,0 +1,10 @@
+mat-form-field, div {
+    display: block;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+#shortName {
+    @apply
+        mb-5;
+}
