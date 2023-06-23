@@ -8,3 +8,10 @@ mat-form-field, div {
     @apply
         mb-5;
 }
+
+.buttonCollection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

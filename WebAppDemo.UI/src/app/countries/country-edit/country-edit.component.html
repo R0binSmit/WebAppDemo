@@ -21,7 +21,7 @@
         <mat-error *ngIf="shortName?.hasError('minlength')">The minumum lengh of short name is two.</mat-error>
         <mat-error *ngIf="shortName?.hasError('maxlength')">The maximum length of short name is two.</mat-error>
     </mat-form-field>
-    <div>
+    <div class="buttonCollection">
         <app-submit-button value="Create" [disabled]="!form.valid"></app-submit-button>
         <app-cancel-button value="Cancel"routerLink="/countries"></app-cancel-button>
     </div>
