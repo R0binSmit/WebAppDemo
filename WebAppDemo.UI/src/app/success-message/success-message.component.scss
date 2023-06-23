@@ -1,4 +1,7 @@
 .messageBox {
+    min-width: 120px;
+    max-width: 320px;
+
     @apply
         rounded-lg
         absolute
@@ -14,7 +17,7 @@
     @apply
         font-bold
         text-gray-100
-        text-base
+        text-lg
 }
 
 .description {
@@ -27,7 +30,15 @@
     @apply
         absolute
         right-1
-        top-1
+        top-3
         text-white
         
+}
+
+.visiable {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
 }

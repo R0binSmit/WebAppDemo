@@ -1,7 +1,11 @@
 <ng-container>
-    <div class="messageBox">
+    <div class="messageBox" #messageBox [style]="getVisibility">
         <span class="title">{{ title }}</span>
-        <mat-icon svgIcon="close" class="pointer closeIcon" (click)="onClose()" ></mat-icon>
+        <mat-icon 
+            svgIcon="{{ iconType.Close }}"
+            class="pointer closeIcon"
+            (click)="setVisibility(false)"
+        ></mat-icon>
         <hr>
         <p class="description"> {{ description }} </p>
     </div>
