@@ -2,9 +2,8 @@
 <form (ngSubmit)="createCountry()" [formGroup]="form">
     <mat-form-field id="fullName">
         <mat-label>Full name</mat-label>
-        <input 
+        <input
             #fullNameElement
-            matInput
             matNativeControl
             formControlName="fullName"
         />
@@ -13,7 +12,6 @@
     <mat-form-field id="shortName">
         <mat-label>Short name</mat-label>
         <input 
-            matInput
             appUpperCase
             matNativeControl
             formControlName="shortName"
@@ -23,7 +21,7 @@
         <mat-error *ngIf="shortName?.hasError('maxlength')">The maximum length of short name is two.</mat-error>
     </mat-form-field>
     <div class="buttonCollection">
-        <app-submit-button value="Create" [disabled]="!form.valid" class="center"></app-submit-button>
-        <app-cancel-button value="Cancel"routerLink="/countries" class="center"></app-cancel-button>
+        <app-submit-button value="Create" [disabled]="!form.valid" ></app-submit-button>
+        <app-cancel-button value="Cancel"routerLink="/countries" ></app-cancel-button>
     </div>
 </form>

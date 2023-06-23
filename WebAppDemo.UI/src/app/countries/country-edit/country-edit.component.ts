@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CountryService } from '../country.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,7 +9,7 @@ import { Country } from '../country.model';
   templateUrl: './country-edit.component.html',
   styleUrls: ['./country-edit.component.scss']
 })
-export class CountryEditComponent implements OnInit {
+export class CountryEditComponent implements OnInit, AfterViewInit {
   // Setup data properties with init values.
   countryId: number = 0;
   country: Country = new Country(0, "", "");
@@ -60,7 +60,6 @@ export class CountryEditComponent implements OnInit {
   setInitFormValues(): void {
     this.shortName?.setValue(this.country.shortName);
     this.fullName?.setValue(this.country.fullName);
-    this.fullNameElement.nativeElement.focus();
   }
 
   /**
@@ -83,6 +82,11 @@ export class CountryEditComponent implements OnInit {
       () => this.setInitFormValues()
     );
     this.setupBindings();
+  }
+
+  
+  ngAfterViewInit(): void {
+    this.fullNameElement.nativeElement.focus();
   }
   
   /**

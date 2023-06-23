@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators  } from '@angular/forms';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CountryService } from '../country.service';
 import { Country } from '../country.model';
@@ -9,9 +9,9 @@ import { Country } from '../country.model';
   templateUrl: './country-create.component.html',
   styleUrls: ['./country-create.component.scss']
 })
-export class CountryCreateComponent implements OnInit {
+export class CountryCreateComponent implements AfterViewInit {
   form: FormGroup = new FormGroup([]);
-  @ViewChild('fullNameElement') fullNameElement!: ElementRef;
+  @ViewChild('fullNameElement', { static: true}) fullNameElement!: ElementRef;
 
   constructor(
     public countryService: CountryService,
@@ -32,7 +32,7 @@ export class CountryCreateComponent implements OnInit {
   get shortName() { return this.form.get('shortName'); }
   get fullName() { return this.form.get('fullName'); }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.fullNameElement.nativeElement.focus();
   }
 
