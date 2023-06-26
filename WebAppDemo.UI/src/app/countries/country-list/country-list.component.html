@@ -1,4 +1,3 @@
-
 <h1>Countries</h1>
 <div class="tableContainer">
     <div>
@@ -53,10 +52,15 @@
         <tr mat-row *matRowDef="let country; columns: displayedColumns;"></tr>
     </table>
 </div>
-<div *ngIf="successMessage !== undefined && successMessage !== null">
-    <app-success-message 
+<app-success-message 
+    *ngIf="successMessage !== undefined && successMessage !== null"
     [description]="successMessage.description"
     [isVisible]="successMessage.isVisible"
     [visibilityTime]="successMessage.visibilityTime"
 ></app-success-message>
-</div>
+<app-error-message
+    *ngIf="errorMessage !== undefined && errorMessage !== null"
+    [description]="errorMessage.description"
+    [isVisible]="errorMessage.isVisible"
+    [visibilityTime]="errorMessage.visibilityTime"
+></app-error-message>
