@@ -3,6 +3,9 @@ import { CountryService } from '../country.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Country } from '../country.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MessageType } from 'src/app/shared/messageType.enum';
+import { Message } from 'src/app/shared/message.model';
 
 @Component({
   selector: 'app-country-edit',
@@ -63,27 +66,40 @@ export class CountryEditComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Navigate to country list. 
+   * Navigate back to the country list with a success message.
    */
-  navigateToCountryList(): void {
-    this.router.navigate(['/countries']);
+  successNavigation(): void {
+    let successMessage = new Message(MessageType.Success, "Success", "Country was successfully edit.", true, 10000);
+    this.router.navigate(['/countries'], {
+      queryParams: { successMessage }
+    });
+  }
+
+  /**
+   * Navigate back to the country list with a error message.
+   * @param response 
+   */
+  errorNavigation(response: HttpErrorResponse): void {
+    let errorMessage = new Message(MessageType.Error, "Error", response.error.Description, true, 10000)
+    this.router.navigate(['/countries'], {
+      queryParams: { errorMessage }
+    });
   }
 
   /**
    * Loading all data by router parameter and setup FormControl values/bindings.
    * Error loading country data by id => navigate back to country list.
-   * TODO: add error message.
    */
   ngOnInit(): void {
     this.countryId = Number(this.route.snapshot.paramMap.get('id'));
+
     this.countryService.get(this.countryId).subscribe(
       data => { this.country = data },
-      () => this.navigateToCountryList(),
+      (response: HttpErrorResponse) => this.errorNavigation(response),
       () => this.setInitFormValues()
     );
     this.setupBindings();
   }
-
   
   ngAfterViewInit(): void {
     this.fullNameElement.nativeElement.focus();
@@ -91,15 +107,15 @@ export class CountryEditComponent implements OnInit, AfterViewInit {
   
   /**
    * Update country by model.
-   * Error => TODO: navigate back to country list with error message. 
+   * Error => navigate back to country list with error message. 
    * Complete => navigate back to country list with out an message.
    */
   editCountry(): void {
     if(this.country.id !== 0) {
       this.countryService.update(this.country).subscribe(
         null,
-        null,
-        () => this.navigateToCountryList()
+        (response: HttpErrorResponse) => this.errorNavigation(response),
+        () => this.successNavigation()
       );
     }
   }
