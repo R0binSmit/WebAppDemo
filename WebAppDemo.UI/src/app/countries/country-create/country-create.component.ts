@@ -5,6 +5,7 @@ import { CountryService } from '../country.service';
 import { Country } from '../country.model';
 import { Message } from 'src/app/shared/message.model';
 import { MessageType } from 'src/app/shared/messageType.enum';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-country-create',
@@ -38,16 +39,40 @@ export class CountryCreateComponent implements AfterViewInit {
     this.fullNameElement.nativeElement.focus();
   }
 
+  /**
+   * Navigate back to the country list with an error message.
+   * @param response HttpErrorResponse.
+   */
+  errorNavigation(response: HttpErrorResponse) {
+    let errorMessage = new Message(MessageType.Error, "Error", response.error.Description, true, 10000);
+    this.router.navigate(['/countries'], {
+      queryParams: { errorMessage }
+    });
+  }
+
+  /**
+   * Navigate back to the countr list with a success message.
+   */
+  successNavigation() {
+    let successMessage = new Message(MessageType.Success, "Success", "Country was successfully created.", true, 10000);
+    this.router.navigate(['/countries'], {
+      queryParams: { successMessage }
+    });
+  }
+
+  /**
+   * Create country and navigate back to country list.
+   */
   createCountry(): void {
     if (this.shortName?.valid == true && this.fullName?.valid == true) {
       let country: Country = new Country(0, this.shortName?.value, this.fullName?.value);
-      let successMessage = new Message(MessageType.Success, "Success", "Country was successfully created.", true, 10000);
-      this.countryService.create(country).subscribe(null, null, () => {
-        this.router.navigate(['/countries'], {
-            queryParams: { successMessage }
-          }
-        );
-      });
+      
+
+      this.countryService.create(country).subscribe(
+        null,
+        (response: HttpErrorResponse) => this.errorNavigation(response),
+        () => this.successNavigation()
+      );
     }
   }
 }
