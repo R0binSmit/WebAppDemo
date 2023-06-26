@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CountryService } from '../country.service';
 import { Country } from '../country.model';
+import { Message } from 'src/app/shared/message.model';
+import { MessageType } from 'src/app/shared/messageType.enum';
 
 @Component({
   selector: 'app-country-create',
@@ -39,8 +41,12 @@ export class CountryCreateComponent implements AfterViewInit {
   createCountry(): void {
     if (this.shortName?.valid == true && this.fullName?.valid == true) {
       let country: Country = new Country(0, this.shortName?.value, this.fullName?.value);
+      let successMessage = new Message(MessageType.Success, "Success", "Country was successfully created.", true, 10000);
       this.countryService.create(country).subscribe(null, null, () => {
-        this.router.navigate(['/countries']);
+        this.router.navigate(['/countries'], {
+            queryParams: { successMessage }
+          }
+        );
       });
     }
   }

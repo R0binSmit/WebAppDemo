@@ -53,4 +53,10 @@
         <tr mat-row *matRowDef="let country; columns: displayedColumns;"></tr>
     </table>
 </div>
-<app-error-message description="Can't finde selected country. Pleace make sure, that the choosen country exists." [visibilityTime]="10000"></app-error-message>
+<div *ngIf="successMessage !== undefined && successMessage !== null">
+    <app-success-message 
+    [description]="successMessage.description"
+    [isVisible]="successMessage.isVisible"
+    [visibilityTime]="successMessage.visibilityTime"
+></app-success-message>
+</div>

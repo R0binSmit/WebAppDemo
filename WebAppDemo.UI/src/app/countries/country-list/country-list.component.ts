@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { ICountry } from '../country.interface';
 import { CountryService } from '../country.service';
@@ -11,6 +11,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { IconHelper } from 'src/app/shared/iconHelper';
 import { IconType } from 'src/app/shared/iconType.enum';
 import { Router } from '@angular/router';
+import { Message } from 'src/app/shared/message.model';
+import { SuccessMessageComponent } from 'src/app/success-message/success-message.component';
 
 @Component({
   selector: 'app-country-list',
@@ -39,6 +41,11 @@ export class CountryListComponent implements UseIcon {
       IconType.Edit
     ]
 
+    // Message
+    @ViewChild('successMessageElement')  successMessageComponent!: SuccessMessageComponent;
+    successMessage: Message|null = null;
+    errorMessage: Message|null = null;
+
     constructor(
       private countryService: CountryService,
       public matIconRegistry: MatIconRegistry,
@@ -47,6 +54,12 @@ export class CountryListComponent implements UseIcon {
     )
     {
       IconHelper.registerIcons(this.iconTypes, this.matIconRegistry, this.domSanitizer);
+      this.readRouterParameters();
+    }
+
+    readRouterParameters(): void {
+      this.successMessage = this.router.getCurrentNavigation()?.extras?.queryParams?.['successMessage'];
+      this.errorMessage = this.router.getCurrentNavigation()?.extras?.queryParams?.['errorMessage'];
     }
 
     loadAllCountries(): void {
@@ -78,7 +91,7 @@ export class CountryListComponent implements UseIcon {
     }
 
     async onDeleteCountry(countryId: number): Promise<void> {
-      this.countryService.delete(countryId).subscribe(null, null, this.loadAllCountries);
+      this.countryService.delete(countryId).subscribe(null, null, () => { this.loadAllCountries() });
     }
 
     delay(time: number): any {
