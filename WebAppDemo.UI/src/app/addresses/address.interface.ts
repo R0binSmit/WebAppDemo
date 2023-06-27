@@ -7,5 +7,6 @@ export interface IAddress {
     street: string;
     houseNumber: number;
     houseNumberAddition: string;
+    stateId: number;
     state: IState;
 }

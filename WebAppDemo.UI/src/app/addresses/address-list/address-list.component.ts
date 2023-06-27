@@ -7,12 +7,13 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
-import { EditAddressDialogComponent } from '../edit-address-dialog/edit-address-dialog.component';
 import { IconType } from 'src/app/shared/iconType.enum';
 import { IconHelper } from 'src/app/shared/iconHelper';
 import { UseIcon } from 'src/app/shared/useIcon.interface';
 import { Message } from 'src/app/shared/message.model';
 import { Router } from '@angular/router';
+import { MessageType } from 'src/app/shared/messageType.enum';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-address-list',
@@ -47,7 +48,6 @@ export class AddressListComponent implements OnInit, UseIcon {
     private addressService: AddressService,
     public matIconRegistry: MatIconRegistry,
     public domSanitizer: DomSanitizer,
-    private dialog: MatDialog,
     private router: Router)
   {
     IconHelper.registerIcons(this.iconTypes, this.matIconRegistry, this.domSanitizer);
@@ -81,20 +81,30 @@ export class AddressListComponent implements OnInit, UseIcon {
     });
   }
 
+  successDelete(): void {
+    let successMessage = new Message(MessageType.Success, "Success", "Address was successfully deletet.", true, 10000);
+    this.router.navigate(['/addresses'], {
+      queryParams: { successMessage }
+    });
+  }
+
+  errorDelete(response: HttpErrorResponse): void  {
+    let errorMessage = new Message(MessageType.Error, "Error", response.error.Description, true, 10000);
+    this.router.navigate(['/addresses'], {
+      queryParams: { errorMessage }
+    });
+  }
+
   onAddressToggleSelection(address: IAddress) : void {
     this.selection.toggle(address);
   }
 
-  openEditDialog(address: IAddress) : void {
-    this.dialog.open(EditAddressDialogComponent, { data: address});
-  }
-
   async onDeleteAddress(addressId: number): Promise<void> {
-    this.addressService.delete(addressId).subscribe();
-  }
-
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+    this.addressService.delete(addressId).subscribe(
+      null,
+      (response: HttpErrorResponse) => this.errorDelete(response),
+      () => this.successDelete() 
+    );
   }
 }
  

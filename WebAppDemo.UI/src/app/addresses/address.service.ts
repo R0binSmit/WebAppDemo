@@ -3,7 +3,6 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../environments/environment';
 import { IAddress } from './address.interface';
-import { UpdateAddressDto } from './edit-address-dialog/updateAddress.model';
 import { Address } from './address.model';
 
 @Injectable({
@@ -29,7 +28,7 @@ export class AddressService {
     return this.httpClient.get<IAddress>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
-  public update(address: UpdateAddressDto) : Observable<any> {
+  public update(address: Address) : Observable<any> {
     let result = this.httpClient.put<any>(`${environment.apiUrl}/${this.url}`, address);
     this.addressesChanged.emit(this.getAllAddresses());
     return result;

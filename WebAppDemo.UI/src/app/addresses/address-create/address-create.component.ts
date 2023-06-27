@@ -97,7 +97,6 @@ export class AddressCreateComponent implements AfterViewInit, OnInit {
     if(isValid == false) {
       let value = this.zipCodeElement.nativeElement.value.substring(0, this.zipCodeElement.nativeElement.value.length - 1);
       this.getZipCodeControl?.setValue(value);
-      
     }
   }
 

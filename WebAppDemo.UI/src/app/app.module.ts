@@ -27,7 +27,6 @@ import { MatSelectModule} from '@angular/material/select';
 // Component imports
 import { StateListComponent } from './states/state-list/state-list.component';
 import { AddressListComponent } from './addresses/address-list/address-list.component';
-import { EditAddressDialogComponent } from './addresses/edit-address-dialog/edit-address-dialog.component';
 import { SubmitButtonComponent } from './submit-button/submit-button.component';
 import { HeaderComponent } from './header/header.component';
 import { VacationListComponent } from './vacation-types/vacation-list/vacation-list.component';
@@ -42,6 +41,7 @@ import { CountryCreateComponent } from './countries/country-create/country-creat
 import { UpperCaseDirective } from './upper-case.directive';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { AddressCreateComponent } from './addresses/address-create/address-create.component';
+import { AddressEditComponent } from './addresses/address-edit/address-edit.component';
 
 const appRoutes: Routes = [
   {path: '', component: VacationListComponent},
@@ -51,7 +51,8 @@ const appRoutes: Routes = [
   {path: 'countries/edit/:id', component: CountryEditComponent},
   {path: 'states', component: StateListComponent},
   {path: 'addresses', component: AddressListComponent},
-  {path: 'addresses/create', component: AddressCreateComponent}
+  {path: 'addresses/create', component: AddressCreateComponent},
+  {path: 'addresses/edit/:id', component: AddressEditComponent}
 ];
 
 @NgModule({
@@ -62,7 +63,6 @@ const appRoutes: Routes = [
     HeaderComponent,
     StateListComponent,
     AddressListComponent,
-    EditAddressDialogComponent,
     CancelButtonComponent,
     SuccessMessageComponent,
     CountriesComponent,
@@ -73,7 +73,8 @@ const appRoutes: Routes = [
     CountryCreateComponent,
     UpperCaseDirective,
     ErrorMessageComponent,
-    AddressCreateComponent
+    AddressCreateComponent,
+    AddressEditComponent
   ],
   imports: [
     BrowserModule,

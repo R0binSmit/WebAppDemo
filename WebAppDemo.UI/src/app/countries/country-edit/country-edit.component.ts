@@ -6,6 +6,7 @@ import { Country } from '../country.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageType } from 'src/app/shared/messageType.enum';
 import { Message } from 'src/app/shared/message.model';
+import { CustomValidators } from 'src/app/shared/validators';
 
 @Component({
   selector: 'app-country-edit',
@@ -29,7 +30,8 @@ export class CountryEditComponent implements OnInit, AfterViewInit {
       shortName: new FormControl('', [
           Validators.required,
           Validators.maxLength(2),
-          Validators.minLength(2)
+          Validators.minLength(2),
+          CustomValidators.onlyNumbers
         ]
       ),
       fullName: new FormControl('', [
