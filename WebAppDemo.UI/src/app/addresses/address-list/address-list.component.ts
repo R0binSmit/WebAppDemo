@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Address } from '../address.model';
+import { IAddress } from '../address.interface';
 import { AddressService } from '../address.service';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -8,10 +8,11 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { EditAddressDialogComponent } from '../edit-address-dialog/edit-address-dialog.component';
-import { CreateAddressDialogComponent } from '../create-address-dialog/create-address-dialog.component';
 import { IconType } from 'src/app/shared/iconType.enum';
 import { IconHelper } from 'src/app/shared/iconHelper';
 import { UseIcon } from 'src/app/shared/useIcon.interface';
+import { Message } from 'src/app/shared/message.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-address-list',
@@ -21,14 +22,16 @@ import { UseIcon } from 'src/app/shared/useIcon.interface';
 export class AddressListComponent implements OnInit, UseIcon {
   // Data Properties
   dataSource: any;
-  addresses: Address[] = [];
+  addresses: IAddress[] = [];
 
   // Sort Properties
   multiSelection: boolean = true;
   initialSelection: [] = [];
-  selection = new SelectionModel<Address>(this.multiSelection, this.initialSelection);
+  selection = new SelectionModel<IAddress>(this.multiSelection, this.initialSelection);
 
   @ViewChild(MatSort) sort: MatSort = new MatSort;
+  successMessage: Message|null = null;
+  errorMessage: Message|null = null;
 
   // Static data
   displayedColumns : string[] = ['select' ,'id', 'zipCode', 'city', 'street', 'houseNumber', 'stateName', 'countryName', 'detailsIcon', 'editIcon', 'deleteIcon'];
@@ -41,12 +44,19 @@ export class AddressListComponent implements OnInit, UseIcon {
   ];
 
   constructor(
-    public addressService: AddressService,
+    private addressService: AddressService,
     public matIconRegistry: MatIconRegistry,
     public domSanitizer: DomSanitizer,
-    public dialog: MatDialog) 
+    private dialog: MatDialog,
+    private router: Router)
   {
     IconHelper.registerIcons(this.iconTypes, this.matIconRegistry, this.domSanitizer);
+    this.readRouterParameters();
+  }
+
+  readRouterParameters(): void {
+    this.successMessage = this.router.getCurrentNavigation()?.extras?.queryParams?.['successMessage'];
+    this.errorMessage = this.router.getCurrentNavigation()?.extras?.queryParams?.['errorMessage'];
   }
 
   ngOnInit(): void {
@@ -71,16 +81,12 @@ export class AddressListComponent implements OnInit, UseIcon {
     });
   }
 
-  onAddressToggleSelection(address: Address) : void {
+  onAddressToggleSelection(address: IAddress) : void {
     this.selection.toggle(address);
   }
 
-  openEditDialog(address: Address) : void {
+  openEditDialog(address: IAddress) : void {
     this.dialog.open(EditAddressDialogComponent, { data: address});
-  }
-
-  onOpenCreateDialog(): void {
-    this.dialog.open(CreateAddressDialogComponent);
   }
 
   async onDeleteAddress(addressId: number): Promise<void> {

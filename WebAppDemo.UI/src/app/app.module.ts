@@ -33,7 +33,6 @@ import { HeaderComponent } from './header/header.component';
 import { VacationListComponent } from './vacation-types/vacation-list/vacation-list.component';
 import { CancelButtonComponent } from './cancel-button/cancel-button.component';
 import { SuccessMessageComponent } from './success-message/success-message.component';
-import { CreateAddressDialogComponent } from './addresses/create-address-dialog/create-address-dialog.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CountryListComponent } from './countries/country-list/country-list.component';
 import { HomeComponent } from './home/home.component';
@@ -42,6 +41,7 @@ import { CountryEditComponent } from './countries/country-edit/country-edit.comp
 import { CountryCreateComponent } from './countries/country-create/country-create.component';
 import { UpperCaseDirective } from './upper-case.directive';
 import { ErrorMessageComponent } from './error-message/error-message.component';
+import { AddressCreateComponent } from './addresses/address-create/address-create.component';
 
 const appRoutes: Routes = [
   {path: '', component: VacationListComponent},
@@ -51,6 +51,7 @@ const appRoutes: Routes = [
   {path: 'countries/edit/:id', component: CountryEditComponent},
   {path: 'states', component: StateListComponent},
   {path: 'addresses', component: AddressListComponent},
+  {path: 'addresses/create', component: AddressCreateComponent}
 ];
 
 @NgModule({
@@ -64,7 +65,6 @@ const appRoutes: Routes = [
     EditAddressDialogComponent,
     CancelButtonComponent,
     SuccessMessageComponent,
-    CreateAddressDialogComponent,
     CountriesComponent,
     CountryListComponent,
     HomeComponent,
@@ -72,7 +72,8 @@ const appRoutes: Routes = [
     CountryEditComponent,
     CountryCreateComponent,
     UpperCaseDirective,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    AddressCreateComponent
   ],
   imports: [
     BrowserModule,

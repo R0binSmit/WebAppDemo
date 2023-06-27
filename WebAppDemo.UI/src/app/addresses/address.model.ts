@@ -1,11 +1,14 @@
 import { State } from "../states/state.model";
 
-export interface Address {
-    id: number;
-    zipCode: string
-    city: string;
-    street: string;
-    houseNumber: number;
-    houseNumberAddition: string;
-    state: State;
+export class Address {
+    constructor( 
+        public id: number,
+        public zipCode: string,
+        public city: string,
+        public street: string,
+        public houseNumber: number,
+        public houseNumberAddition: string,
+        public stateId: number,
+        public state: State|null
+    ) { }
 }

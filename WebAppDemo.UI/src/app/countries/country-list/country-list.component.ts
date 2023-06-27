@@ -93,8 +93,4 @@ export class CountryListComponent implements UseIcon {
     async onDeleteCountry(countryId: number): Promise<void> {
       this.countryService.delete(countryId).subscribe(null, null, () => { this.loadAllCountries() });
     }
-
-    delay(time: number): any {
-      return new Promise(resolve => setTimeout(resolve, time));
-    }
 }

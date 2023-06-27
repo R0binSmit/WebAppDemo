@@ -1,0 +1,68 @@
+<h1 style="text-align: center;">Create Address</h1>
+<form (ngSubmit)="createAddress()" [formGroup]="form">
+    <mat-form-field id="zipCode">
+        <mat-label>Zip Code</mat-label>
+        <input
+            #zipCodeElement
+            matNativeControl
+            (keyup)="keyUpZipCode()"
+            formControlName="zipCode"
+        />
+        <mat-error *ngIf="getZipCodeControl?.hasError('required')">Zip Code is required.</mat-error>
+        <mat-error *ngIf="getZipCodeControl?.hasError('minlength')">Zip Code min length is 3.</mat-error>
+        <mat-error *ngIf="getZipCodeControl?.hasError('maxlength')">Zip Code max length is 10.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>City</mat-label>
+        <input
+            matNativeControl
+            formControlName="city"
+        />
+        <mat-error *ngIf="getCityControl?.hasError('required')">City is required.</mat-error>
+        <mat-error *ngIf="getCityControl?.hasError('maxlength')">City max lenght is 150.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Street</mat-label>
+        <input 
+            matNativeControl
+            formControlName="street"
+        />
+        <mat-error *ngIf="getStreetControl?.hasError('required')">Street is required.</mat-error>
+        <mat-error *ngIf="getStreetControl?.hasError('maxlength')">Street max length is 150.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>House Number</mat-label>
+        <input 
+            matNativeControl
+            type="number"
+            formControlName="houseNumber"
+        />
+        <mat-error *ngIf="getHouseNumberControl?.hasError('required')">House Number is required.</mat-error>
+        <mat-error *ngIf="getHouseNumberControl?.hasError('maxlength')">House Number max lenght is 10.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>House Number Addition</mat-label>
+        <input 
+            matNativeControl
+            formControlName="houseNumberAddition"
+        />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Country</mat-label>
+        <mat-select matNativeControl formControlName="country" (valueChange)="onCountryChanged($event)">
+            <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.fullName }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="getCountryControl?.hasError('required')">Country is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select matNativeControl formControlName="state" [disabled]="states.length <= 0">
+            <mat-option *ngFor="let state of states" [value]="state.id">{{ state.name }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="getStateControl?.hasError('required')">State is required.</mat-error>
+    </mat-form-field>
+    <div class="buttonCollection">
+        <app-submit-button value="Create" [disabled]="!form.valid"></app-submit-button>
+        <app-cancel-button value="Cancel" routerLink="/addresses"></app-cancel-button>
+    </div>
+</form>

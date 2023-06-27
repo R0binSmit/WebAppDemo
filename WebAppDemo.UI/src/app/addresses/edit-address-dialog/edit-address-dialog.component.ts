@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Address } from '../address.model';
+import { IAddress } from '../address.interface';
 import { CountryService } from 'src/app/countries/country.service';
 import { StateService } from 'src/app/states/state.service';
 import { ICountry } from 'src/app/countries/country.interface';
-import { State } from 'src/app/states/state.model';
+import { IState } from 'src/app/states/state.inteface';
 import { AddressService } from '../address.service';
 import { UpdateAddressDto } from './updateAddress.model';
 
@@ -17,16 +17,16 @@ export class EditAddressDialogComponent implements OnInit {
   dialogRef: MatDialogRef<EditAddressDialogComponent>;
 
   // Data
-  address: Address;
+  address: IAddress;
   countryService: CountryService;
   addressService: AddressService;
   countries: ICountry[] = [];
   stateService: StateService;
-  states: State[] = [];
+  states: IState[] = [];
 
   constructor(
     dialogRef: MatDialogRef<EditAddressDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) address: Address,
+    @Inject(MAT_DIALOG_DATA) address: IAddress,
     countryService: CountryService,
     stateService: StateService,
     addressService: AddressService)
@@ -58,7 +58,7 @@ export class EditAddressDialogComponent implements OnInit {
     });
   }
 
-  updateAddress(address: Address) : void {
+  updateAddress(address: IAddress) : void {
     let updateAddressDto = new UpdateAddressDto(
       address.id, address.state.id, address.city,
       address.street, address.zipCode, address.houseNumber,

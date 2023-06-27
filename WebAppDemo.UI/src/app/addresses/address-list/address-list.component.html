@@ -1,7 +1,7 @@
 <h1>Addresses</h1>
 <div class="tableContainer">
     <div>
-        <mat-icon svgIcon="{{ iconType.Create }}" (click)="onOpenCreateDialog()" class="pointer" />
+        <mat-icon svgIcon="{{ iconType.Create }}" [routerLink]="['/addresses/create']" class="pointer" />
     </div>
     <table mat-table [dataSource]="dataSource" matSort>
         <!-- Select column -->
@@ -68,3 +68,15 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 </div>
+<app-success-message 
+    *ngIf="successMessage !== undefined && successMessage !== null"
+    [description]="successMessage.description"
+    [isVisible]="successMessage.isVisible"
+    [visibilityTime]="successMessage.visibilityTime"
+></app-success-message>
+<app-error-message
+    *ngIf="errorMessage !== undefined && errorMessage !== null"
+    [description]="errorMessage.description"
+    [isVisible]="errorMessage.isVisible"
+    [visibilityTime]="errorMessage.visibilityTime"
+></app-error-message>

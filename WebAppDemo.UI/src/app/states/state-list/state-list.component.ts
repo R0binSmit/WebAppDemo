@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { State } from '../state.model';
+import { IState } from '../state.inteface';
 import { StateService } from '../state.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -13,13 +13,13 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class StateListComponent implements OnInit {
   // Data Properties
   dataSource: any;
-  states: State[] = [];
+  states: IState[] = [];
   stateService: StateService
 
   // Select Properties
   multiSelection: boolean = true;
   initiSelection: [] = [];
-  selection = new SelectionModel<State>(this.multiSelection, this.initiSelection);
+  selection = new SelectionModel<IState>(this.multiSelection, this.initiSelection);
 
   // Table Configuration
   @ViewChild(MatSort) sort: MatSort;
@@ -46,7 +46,7 @@ export class StateListComponent implements OnInit {
     });   
   }
 
-  onStateToggleSelection(state: State) : void {
+  onStateToggleSelection(state: IState) : void {
     this.selection.toggle(state);
   }
 }

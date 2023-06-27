@@ -1,7 +1,9 @@
-import { ICountry } from "../countries/country.interface";
+import { Country } from "../countries/country.model";
 
-export interface State {
-    id: number;
-    name: string;
-    country: ICountry;
+export class State {
+    constructor (
+        public id: number,
+        public name: string,
+        public country: Country|null
+    ) { }
 }

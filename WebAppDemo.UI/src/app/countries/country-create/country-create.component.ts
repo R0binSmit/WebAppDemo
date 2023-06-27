@@ -64,9 +64,8 @@ export class CountryCreateComponent implements AfterViewInit {
    * Create country and navigate back to country list.
    */
   createCountry(): void {
-    if (this.shortName?.valid == true && this.fullName?.valid == true) {
+    if (this.form.valid) {
       let country: Country = new Country(0, this.shortName?.value, this.fullName?.value);
-      
 
       this.countryService.create(country).subscribe(
         null,
