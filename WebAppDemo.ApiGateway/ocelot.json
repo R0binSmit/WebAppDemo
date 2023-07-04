@@ -1,0 +1,52 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/States",
+      "UpstreamPathTemplate": "/States",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7252
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/States/GetByStateId/{stateId}",
+      "UpstreamPathTemplate": "/States/GetByStateId/{stateId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7252
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/States/GetByCountryId/{countryId}",
+      "UpstreamPathTemplate": "/States/GetByCountryId/{countryId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7252
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/States/{stateId}",
+      "UpstreamPathTemplate": "/States/{stateId}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7252
+        }
+      ]
+    }
+  ]
+}

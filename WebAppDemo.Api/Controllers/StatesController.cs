@@ -47,13 +47,13 @@ public class StatesController : ControllerBase
     /// <param name="id">The id of the state.</param>
     /// <returns>The state with the given id.</returns>
     [HttpGet("GetByStateId/{stateId}")]
-    public async Task<ActionResult<GetStateDto>> GetState(int id)
+    public async Task<ActionResult<GetStateDto>> GetState(int stateId)
     {
-        var state = await _stateRepository.GetAsync(id);
+        var state = await _stateRepository.GetAsync(stateId);
 
         if (state == null)
         {
-            throw new NotFoundException($"Can't find State by given id ({id}).");
+            throw new NotFoundException($"Can't find State by given id ({stateId}).");
         }
 
         return _stateMapper.Map(state);
@@ -147,16 +147,16 @@ public class StatesController : ControllerBase
     /// <summary>
     /// Deletes a state from the database.
     /// </summary>
-    /// <param name="id">The id of the state to delete.</param>
+    /// <param name="stateId">The id of the state to delete.</param>
     /// <returns>No content if the state was successfully deleted.</returns>
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> DeleteState(int id)
+    [HttpDelete("{stateId}")]
+    public async Task<ActionResult> DeleteState(int stateId)
     {
-        var state = await _stateRepository.GetAsync(id);
+        var state = await _stateRepository.GetAsync(stateId);
 
         if (state == null)
         {
-            throw new NotFoundException($"Can't delete State because there is no State with the given id ({id}).");
+            throw new NotFoundException($"Can't delete State because there is no State with the given id ({stateId}).");
         }
 
         await _stateRepository.DeleteAsync(state.Id);

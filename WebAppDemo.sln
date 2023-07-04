@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.Api", "WebAppDem
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4B0B24E9-BA45-4729-822E-769ABCC03A82}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -26,13 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.Mappers", "WebAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppDemo.CLI", "WebAppDemo.CLI\WebAppDemo.CLI.csproj", "{D915EB02-A230-4D5F-BD77-060102BF09DE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{09575542-EBD7-4C0E-A409-3992618F178A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CountryService", "CountryService", "{5E92483E-66A0-4F98-8217-4427E80432B1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateaway", "ApiGateaway", "{258F9CB6-FBA6-49B6-8550-D737A470F3C7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{E6BC684C-5304-4C0E-962C-AB4A43937274}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppDemo.ApiGateway", "WebAppDemo.ApiGateway\WebAppDemo.ApiGateway.csproj", "{E14F965B-991E-4A6A-97AB-44C9B94A3DEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,14 +71,13 @@ Global
 		{D915EB02-A230-4D5F-BD77-060102BF09DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D915EB02-A230-4D5F-BD77-060102BF09DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D915EB02-A230-4D5F-BD77-060102BF09DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E14F965B-991E-4A6A-97AB-44C9B94A3DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E14F965B-991E-4A6A-97AB-44C9B94A3DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E14F965B-991E-4A6A-97AB-44C9B94A3DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E14F965B-991E-4A6A-97AB-44C9B94A3DEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{09575542-EBD7-4C0E-A409-3992618F178A} = {E6BC684C-5304-4C0E-962C-AB4A43937274}
-		{5E92483E-66A0-4F98-8217-4427E80432B1} = {09575542-EBD7-4C0E-A409-3992618F178A}
-		{258F9CB6-FBA6-49B6-8550-D737A470F3C7} = {E6BC684C-5304-4C0E-962C-AB4A43937274}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DE17365-4995-4D69-B031-C0F5D9003DBF}

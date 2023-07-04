@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { environment } from '../../environments/environment';
 import { IState } from './state.inteface';
 
 @Injectable({
@@ -13,14 +12,14 @@ export class StateService {
   constructor(private httpClient: HttpClient) { }
 
   public getAll(): Observable<IState[]> {
-    return this.httpClient.get<IState[]>(`${environment.apiUrl}/${this.url}`);
+    return this.httpClient.get<IState[]>("https://localhost:7199/States");
   }
 
   public get(id: number) {
-    return this.httpClient.get<IState>(`${environment.apiUrl}/${this.url}/${id}`)
+    return this.httpClient.get<IState>(`https://localhost:7199/States/${id}`)
   }
 
   public getByCountryId(countryId: number): Observable<IState[]> {
-    return this.httpClient.get<IState[]>(`${environment.apiUrl}/${this.url}/GetByCountryId/${countryId}`)
+    return this.httpClient.get<IState[]>(`https://localhost:7199/States/GetByCountryId/${countryId}`)
   }
 }
