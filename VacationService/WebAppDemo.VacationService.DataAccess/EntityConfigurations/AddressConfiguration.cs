@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WebAppDemo.DataAccess.Entities;
+using WebAppDemo.VacationService.DataAccess.Entities;
 
-namespace WebAppDemo.DataAccess.EntityConfigurations;
+namespace WebAppDemo.VacationService.DataAccess.EntityConfigurations;
 
-public class AddressConfiguration : IEntityTypeConfiguration<Address>
+internal class AddressConfiguration : IEntityTypeConfiguration<Address>
 {
     public void Configure(EntityTypeBuilder<Address> builder)
     {
         builder
-            .HasKey(e => e.Id);
+            .HasKey(address => address.Id);
 
         builder
             .HasOne(address => address.State)
@@ -20,12 +20,12 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
         builder
             .Property(address => address.City)
             .IsRequired()
-            .HasMaxLength(150);
+            .HasMaxLength(100);
 
         builder
             .Property(address => address.Street)
             .IsRequired()
-            .HasMaxLength(150);
+            .HasMaxLength(100);
 
         builder
             .Property(address => address.ZipCode)
@@ -40,5 +40,10 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
         builder
             .Property(address => address.HouseNumberAddition)
             .HasDefaultValue(string.Empty);
+
+        builder
+            .HasMany(address => address.Employees)
+            .WithOne(employee => employee.Address)
+            .HasForeignKey(employee => employee.AddressId);
     }
 }

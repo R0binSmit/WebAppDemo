@@ -1,16 +1,51 @@
 version: '3.8'
 services:
-  rabbitmq:
-    image: rabbitmq:3.12.1-management
-    container_name: rabbitmq
-    hostname: rabbitmq
-    command: rabbitmq-server
+  vacationServiceDatabase:
+    image: mysql:8.0.33
+    container_name: WebAppDemo.VacationService.Database
+    hostname: WebAppDemo.VacationService.Database
+    environment:
+        - ACCEPT_EULA='Y'
+        - MYSQL_ROOT_PASSWORD=toor
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
     ports:
-      - "8000:15672"
-      - "8001:5672"
+        - "8003:3306"
     networks:
-        - rabbitmq_net
+      - vacationServiceDatabase_net
+  #rabbitmq:
+  #  image: rabbitmq:3.12.1-management
+  #  container_name: rabbitmq
+  #  hostname: rabbitmq
+  #  command: rabbitmq-server
+  #  ports:
+  #    - "8000:15672"
+  #    - "8001:5672"
+  #  networks:
+  #      - rabbitmq_net
+  vacationService:
+    image: webappdemovacationservice:dev
+    container_name: WebAppDemp.VacationService.Api
+    hostname: WebAppDemp.VacationService.Api
+    build:
+      context: ./VacationService/WebAppDemo.VacationService.Api
+      dockerfile: Dockerfile
+    environment:
+        ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      vacationServiceDatabase:
+        condition: service_healthy
+    ports:
+      - "8002:80"
+    networks:
+      - vacationService_net
 
 networks:
   rabbitmq_net:
     driver: bridge
+  vacationService_net:
+    driver: bridge
+  vacationServiceDatabase_net:
+    driver: bridge  
