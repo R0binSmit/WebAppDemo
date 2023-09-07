@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebAppDemo.AbsenceService.DataAccess.Entities;
 
-namespace WebAppDemo.VacationService.DataAccess.EntityConfigurations;
+namespace WebAppDemo.AbsenceService.DataAccess.EntityConfigurations;
 
-internal class AddressConfiguration : IEntityTypeConfiguration<Address>
+public class AddressConfiguration : IEntityTypeConfiguration<Address>
 {
     public void Configure(EntityTypeBuilder<Address> builder)
     {

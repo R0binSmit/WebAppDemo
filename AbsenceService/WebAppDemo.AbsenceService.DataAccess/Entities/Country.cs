@@ -1,4 +1,4 @@
-﻿namespace WebAppDemo.AbsenceService.DataAccess.Entities;
+﻿ namespace WebAppDemo.AbsenceService.DataAccess.Entities;
 
 public class Country
 {

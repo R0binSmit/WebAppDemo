@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebAppDemo.AbsenceService.DataAccess.Entities;
-using WebAppDemo.VacationService.DataAccess.EntityConfigurations;
+using WebAppDemo.AbsenceService.DataAccess.EntityConfiguration;
+using WebAppDemo.AbsenceService.DataAccess.EntityConfigurations;
 
 namespace WebAppDemo.AbsenceService.DataAccess;
 
@@ -15,8 +16,8 @@ public class DatabaseContext : DbContext
     public DbSet<Country> Countries => Set<Country>();
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<State> States => Set<State>();
-    public DbSet<Absence> Vacations => Set<Absence>();
-    public DbSet<AbsenceType> VacationTypes => Set<AbsenceType>();
+    public DbSet<Absence> Absences => Set<Absence>();
+    public DbSet<AbsenceType> AbsenceTypes => Set<AbsenceType>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,7 +30,7 @@ public class DatabaseContext : DbContext
         new StateConfiguration().Configure(modelBuilder.Entity<State>());
         new AbsenceConfiguration().Configure(modelBuilder.Entity<Absence>());
         new AbsenceTypeConfiguration().Configure(modelBuilder.Entity<AbsenceType>());
-        
+
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

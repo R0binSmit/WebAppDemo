@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using WebAppDemo.IGeneric;
 using WebAppDemo.AbsenceService.DataAccess;
-using WebAppDemo.AbsenceService.DataAccess.Repositories;
 using WebAppDemo.AbsenceService.DataAccess.Entities;
+using WebAppDemo.AbsenceService.DataAccess.Repositories;
 using WebAppDemo.AbsenceService.IDataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,7 +37,6 @@ builder.Services.AddScoped<IAbsenceTypeRepository<AbsenceType>, AbsenceTypeRepos
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

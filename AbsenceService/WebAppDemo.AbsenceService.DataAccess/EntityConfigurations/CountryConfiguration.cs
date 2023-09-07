@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebAppDemo.AbsenceService.DataAccess.Entities;
 
-namespace WebAppDemo.VacationService.DataAccess.EntityConfigurations;
+namespace WebAppDemo.AbsenceService.DataAccess.EntityConfigurations;
 
-internal class CountryConfiguration : IEntityTypeConfiguration<Country>
+public class CountryConfiguration : IEntityTypeConfiguration<Country>
 {
     public void Configure(EntityTypeBuilder<Country> builder)
     {

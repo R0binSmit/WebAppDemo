@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebAppDemo.AbsenceService.DataAccess.Entities;
 
-namespace WebAppDemo.VacationService.DataAccess.EntityConfigurations;
+namespace WebAppDemo.AbsenceService.DataAccess.EntityConfigurations;
 
-internal class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {
     public void Configure(EntityTypeBuilder<Employee> builder)
     {

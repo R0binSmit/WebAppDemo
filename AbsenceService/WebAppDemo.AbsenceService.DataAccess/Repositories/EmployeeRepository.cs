@@ -1,4 +1,4 @@
-﻿using WebAppDemo.IGeneric;
+﻿using Microsoft.EntityFrameworkCore;
 using WebAppDemo.AbsenceService.DataAccess.Entities;
 using WebAppDemo.AbsenceService.IDataAccess;
 

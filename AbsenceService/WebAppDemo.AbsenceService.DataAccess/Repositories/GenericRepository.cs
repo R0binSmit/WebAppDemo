@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebAppDemo.IGeneric;
+using WebAppDemo.AbsenceService.IDataAccess;
 
 namespace WebAppDemo.AbsenceService.DataAccess.Repositories;
 

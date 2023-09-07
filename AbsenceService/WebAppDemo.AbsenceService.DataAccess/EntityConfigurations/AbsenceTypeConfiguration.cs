@@ -2,27 +2,27 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebAppDemo.AbsenceService.DataAccess.Entities;
 
-namespace WebAppDemo.VacationService.DataAccess.EntityConfigurations;
+namespace WebAppDemo.AbsenceService.DataAccess.EntityConfigurations;
 
-internal class AbsenceTypeConfiguration : IEntityTypeConfiguration<AbsenceType>
+public class AbsenceTypeConfiguration : IEntityTypeConfiguration<AbsenceType>
 {
     public void Configure(EntityTypeBuilder<AbsenceType> builder)
     {
         builder
-            .HasKey(vacationType => vacationType.Id);
+            .HasKey(absenceType => absenceType.Id);
 
         builder
-            .Property(vacationType => vacationType.Name)
+            .Property(absenceType => absenceType.Name)
             .IsRequired()
             .HasMaxLength(50);
 
         builder
-            .HasIndex(vacationType => vacationType.Name)
+            .HasIndex(absenceType => absenceType.Name)
             .IsUnique();
 
         builder
-            .HasMany(vacationType => vacationType.Absences)
-            .WithOne(vacation => vacation.AbsenceType)
-            .HasForeignKey(vacation => vacation.AbsencseTypeId);
+            .HasMany(absenceType => absenceType.Absences)
+            .WithOne(absence => absence.AbsenceType)
+            .HasForeignKey(absence => absence.AbsencseTypeId);
     }
 }
