@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\WebAppDemo.AbsenceService.IMappers\WebAppDemo.AbsenceService.IMappers.csproj" />
+    <ProjectReference Include="..\..\WebAppDemo.AbsenceService.Mappers\WebAppDemo.AbsenceService.Mappers.csproj" />
     <ProjectReference Include="..\WebAppDemo.AbsenceService.BussinessLogic\WebAppDemo.AbsenceService.BussinessLogic.csproj" />
     <ProjectReference Include="..\WebAppDemo.AbsenceService.DataAccess\WebAppDemo.AbsenceService.DataAccess.csproj" />
     <ProjectReference Include="..\WebAppDemo.AbsenceService.IDataAccess\WebAppDemo.AbsenceService.IDataAccess.csproj" />

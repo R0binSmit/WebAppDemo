@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAppDemo.AbsenceService.DataAccess.Entities;
+using WebAppDemo.AbsenceService.DataTransferObjects.Country;
 using WebAppDemo.AbsenceService.IDataAccess;
+using WebAppDemo.AbsenceService.IMappers;
 
 namespace WebAppDemo.AbsenceService.Api.Controllers;
 
@@ -9,10 +11,24 @@ namespace WebAppDemo.AbsenceService.Api.Controllers;
 public class CountryController : ControllerBase
 {
     private readonly ICountryRepository<Country> _countryRepository;
+    private readonly ICountryMapper _countryMapper;
     
-    public CountryController(ICountryRepository<Country> countryRepository)
+    public CountryController(ICountryRepository<Country> countryRepository, ICountryMapper countryMapper)
     {
         _countryRepository = countryRepository;
+        _countryMapper = countryMapper;
+    }
+
+    /// <summary>
+    /// Get specific country by id.
+    /// </summary>
+    /// <param name="id">Id</param>
+    /// <returns>Specific country.</returns>
+    [HttpGet("{id}")]
+    public async Task<ActionResult<GetCountryDto>> GetCountryById(int id)
+    {
+        var country = await _countryRepository.GetAsync(id);
+        return _countryMapper.Map(country);
     }
 
     /// <summary>
@@ -20,8 +36,9 @@ public class CountryController : ControllerBase
     /// </summary>
     /// <returns>Json array of all Countries.</returns>
     [HttpGet]
-    public async Task<ActionResult<List<Country>>> GetCountries()
+    public async Task<ActionResult<List<GetCountryDto>>> GetCountries()
     {
-        return await _countryRepository.GetAllAsync();
+        var countries = await _countryRepository.GetAllAsync();
+        return _countryMapper.Map(countries);
     }
 }
